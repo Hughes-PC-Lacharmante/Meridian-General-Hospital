@@ -1,6 +1,3 @@
-# Meridian-General-Hospital
-As part of the assignement given on the 10th of August. This repo will be for the development of the HAWKS laboratories. A well-known security system for hospital management.
-
 ## Historic of Meridian General Hopspital
 Meridian General Hospital (MGH) is a fictional, established secondary/tertiary healthcare organisation that has provided clinical and administrative services for more than two decades. As the hospital expanded, its information infrastructure evolved incrementally rather than through a single unified technology strategy.
 
