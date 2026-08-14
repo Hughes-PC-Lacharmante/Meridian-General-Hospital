@@ -1,1 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Legacy Database Administration
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --navy: #16232f;
+            --navy-dark: #101a22;
+            --navy-light: #263844;
+
+            --background: #eef2f5;
+            --white: #ffffff;
+
+            --text: #1f2933;
+            --muted: #687781;
+
+            --blue: #1976d2;
+            --blue-light: #e9f2fb;
+
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+
+            --border: #d7e0e7;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafb
+                );
+
+            color: var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+
+            height: 68px;
+
+            padding: 0 22px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-dark),
+                    var(--navy)
+                );
+
+            color: #fff;
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .16
+                );
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .brand-logo {
+
+            width: 40px;
+
+            height: 40px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .09
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .16
+                );
+
+            font-weight: 800;
+
+        }
+
+
+        .brand-title {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+        }
+
+
+        .brand-subtitle {
+
+            margin-top: 2px;
+
+            font-size: 10px;
+
+            color: #b8c6d0;
+
+        }
+
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .legacy-badge {
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .back-button {
+
+            padding:
+                8px 11px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .13
+                );
+
+            border-radius:
+                7px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+
+            color:
+                #fff;
+
+            cursor:
+                pointer;
+
+            font-size:
+                11px;
+
+        }
+
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+
+            display: flex;
+
+            min-height:
+                calc(
+                    100vh - 68px
+                );
+
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================== */
+
+        aside {
+
+            width:
+                250px;
+
+            flex-shrink:
+                0;
+
+            padding:
+                18px 0;
+
+            background:
+                var(--navy);
+
+            color:
+                #fff;
+
+        }
+
+
+        .sidebar-heading {
+
+            padding:
+                10px 18px 8px;
+
+            color:
+                #90a4ae;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .08em;
+
+        }
+
+
+        .security-card {
+
+            margin:
+                10px 14px 18px;
+
+            padding:
+                14px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .045
+                );
+
+        }
+
+
+        .security-card .label {
+
+            color:
+                #7dd3fc;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .security-card .value {
+
+            font-size:
+                12px;
+
+            color:
+                #eef6fa;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .side-button {
+
+            width:
+                100%;
+
+            border:
+                none;
+
+            padding:
+                11px 18px;
+
+            background:
+                transparent;
+
+            color:
+                #d7e1e7;
+
+            text-align:
+                left;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .side-button:hover,
+        .side-button.active {
+
+            background:
+                var(--navy-light);
+
+            color:
+                #fff;
+
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+
+            flex:
+                1;
+
+            min-width:
+                0;
+
+            padding:
+                24px;
+
+        }
+
+
+        .page-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .page-header h1 {
+
+            font-size:
+                24px;
+
+            color:
+                #22313c;
+
+        }
+
+
+        .page-header p {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .database-path {
+
+            padding:
+                9px 11px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            color:
+                #566570;
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+
+            margin-bottom:
+                18px;
+
+            padding:
+                14px 16px;
+
+            border-left:
+                4px solid
+                var(--red);
+
+            background:
+                #fff0f0;
+
+            border-top:
+                1px solid
+                #ffd2d2;
+
+            border-right:
+                1px solid
+                #ffd2d2;
+
+            border-bottom:
+                1px solid
+                #ffd2d2;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+
+        .warning-title {
+
+            color:
+                #9b1c1c;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .warning-text {
+
+            color:
+                #7c3030;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        /* =========================================================
+           STAT CARDS
+        ========================================================== */
+
+        .stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(
+                        160px,
+                        1fr
+                    )
+                );
+
+            gap:
+                12px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .stat {
+
+            padding:
+                16px;
+
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .035
+                );
+
+        }
+
+
+        .stat-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .stat-value {
+
+            margin-top:
+                9px;
+
+            color:
+                #263742;
+
+            font-size:
+                24px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .stat-note {
+
+            margin-top:
+                4px;
+
+            color:
+                #87939c;
+
+            font-size:
+                9px;
+
+        }
+
+
+        /* =========================================================
+           WORKBOOK AREA
+        ========================================================== */
+
+        .workbook-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                260px 1fr;
+
+            gap:
+                15px;
+
+            align-items:
+                start;
+
+        }
+
+
+        .card {
+
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .035
+                );
+
+        }
+
+
+        .card-header {
+
+            padding:
+                15px 16px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+
+        .card-header h2 {
+
+            font-size:
+                13px;
+
+        }
+
+
+        .card-header p {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =========================================================
+           WORKBOOK LIST
+        ========================================================== */
+
+        .workbook-list {
+
+            padding:
+                8px;
+
+        }
+
+
+        .workbook-item {
+
+            width:
+                100%;
+
+            padding:
+                11px;
+
+            margin-bottom:
+                7px;
+
+            border:
+                1px solid
+                transparent;
+
+            border-radius:
+                8px;
+
+            background:
+                transparent;
+
+            text-align:
+                left;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .workbook-item:hover {
+
+            background:
+                #f6f9fb;
+
+        }
+
+
+        .workbook-item.active {
+
+            background:
+                var(--blue-light);
+
+            border-color:
+                #cfe1f7;
+
+        }
+
+
+        .workbook-name {
+
+            display:
+                block;
+
+            color:
+                #263741;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .workbook-meta {
+
+            display:
+                block;
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        /* =========================================================
+           SHEETS
+        ========================================================== */
+
+        .sheet-bar {
+
+            display:
+                flex;
+
+            gap:
+                6px;
+
+            padding:
+                10px;
+
+            overflow-x:
+                auto;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            background:
+                #fbfcfd;
+
+        }
+
+
+        .sheet-button {
+
+            flex-shrink:
+                0;
+
+            padding:
+                7px 10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                7px;
+
+            background:
+                #fff;
+
+            color:
+                #53636f;
+
+            font-size:
+                10px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .sheet-button:hover {
+
+            border-color:
+                #9eb2c2;
+
+        }
+
+
+        .sheet-button.active {
+
+            border-color:
+                var(--blue);
+
+            background:
+                var(--blue-light);
+
+            color:
+                #15599b;
+
+            font-weight:
+                800;
+
+        }
+
+
+        /* =========================================================
+           DATA TABLE
+        ========================================================== */
+
+        .table-wrap {
+
+            overflow:
+                auto;
+
+            max-height:
+                530px;
+
+        }
+
+
+        table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+            min-width:
+                850px;
+
+        }
+
+
+        th,
+        td {
+
+            padding:
+                9px 10px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            text-align:
+                left;
+
+            font-size:
+                10px;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        th {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                2;
+
+            background:
+                #f5f7f9;
+
+            color:
+                #647580;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        td {
+
+            color:
+                #34444f;
+
+        }
+
+
+        tr:hover td {
+
+            background:
+                #f9fbfc;
+
+        }
+
+
+        .masked {
+
+            color:
+                #9b5a00;
+
+            font-family:
+                Consolas,
+                monospace;
+
+        }
+
+
+        /* =========================================================
+           EMPTY / LOADING
+        ========================================================== */
+
+        .empty {
+
+            padding:
+                50px 20px;
+
+            text-align:
+                center;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .spinner {
+
+            width:
+                22px;
+
+            height:
+                22px;
+
+            margin:
+                0 auto 10px;
+
+            border:
+                3px solid
+                #dbe5ec;
+
+            border-top-color:
+                var(--blue);
+
+            border-radius:
+                50%;
+
+            animation:
+                spin .8s linear infinite;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(
+                        360deg
+                    );
+            }
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top:
+                16px;
+
+            padding-top:
+                13px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            color:
+                #8a96a0;
+
+            font-size:
+                9px;
+
+            text-align:
+                center;
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (
+            max-width: 1100px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 850px
+        ) {
+
+            aside {
+
+                display:
+                    none;
+
+            }
+
+            .workbook-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 550px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            main {
+
+                padding:
+                    14px;
+
+            }
+
+            .page-header {
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =============================================================
+     HEADER
+================================================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Legacy Database Administration
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY ADMIN CONSOLE
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goBack()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =============================================================
+     SIDEBAR
+================================================================= -->
+
+<aside>
+
+    <div class="sidebar-heading">
+        Database
+    </div>
+
+
+    <div class="security-card">
+
+        <div class="label">
+            Storage Engine
+        </div>
+
+        <div class="value">
+            Microsoft Excel
+        </div>
+
+    </div>
+
+
+    <div class="security-card">
+
+        <div class="label">
+            Storage Location
+        </div>
+
+        <div class="value">
+            /security/
+        </div>
+
+    </div>
+
+
+    <div class="security-card">
+
+        <div class="label">
+            Protection
+        </div>
+
+        <div class="value">
+            Legacy file-based storage
+        </div>
+
+    </div>
+
+
+    <div class="sidebar-heading">
+        Related Systems
+    </div>
+
+
+    <button
+        class="side-button"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+
+    <button
+        class="side-button"
+        onclick="location.href='/security/active_directory.html'">
+
+        Active Directory
+
+    </button>
+
+
+    <button
+        class="side-button"
+        onclick="location.href='/security/login-log.html'">
+
+        Login Logs
+
+    </button>
+
+</aside>
+
+
+<!-- =============================================================
+     MAIN
+================================================================= -->
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Legacy Database Administration
+            </h1>
+
+            <p>
+                File-based data store and worksheet inspection
+            </p>
+
+        </div>
+
+
+        <div class="database-path">
+            /security/*.xlsx
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         WARNING
+    ========================================================== -->
+
+    <div class="warning">
+
+        <div class="warning-title">
+            Legacy Architecture Warning
+        </div>
+
+        <div class="warning-text">
+
+            MLHMS uses spreadsheet workbooks as part of its
+            legacy data-management architecture. This approach
+            introduces serious limitations regarding concurrent
+            access, integrity, authorization, auditing, backup,
+            encryption and lifecycle management.
+
+            All information shown here is synthetic and exists
+            solely for the academic case study.
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATS
+    ========================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Workbooks
+            </div>
+
+            <div
+                id="workbookCount"
+                class="stat-value">
+                —
+            </div>
+
+            <div class="stat-note">
+                Excel files discovered
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Sheets
+            </div>
+
+            <div
+                id="sheetCount"
+                class="stat-value">
+                —
+            </div>
+
+            <div class="stat-note">
+                Worksheets available
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Current Records
+            </div>
+
+            <div
+                id="recordCount"
+                class="stat-value">
+                —
+            </div>
+
+            <div class="stat-note">
+                Records in selected sheet
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Security Model
+            </div>
+
+            <div
+                class="stat-value"
+                style="color:#c62828">
+                Weak
+            </div>
+
+            <div class="stat-note">
+                Legacy architecture
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         WORKBOOKS + DATA
+    ========================================================== -->
+
+    <div class="workbook-grid">
+
+
+        <!-- =====================================================
+             WORKBOOK LIST
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Legacy Workbooks
+                </h2>
+
+                <p>
+                    Files discovered under /security/
+                </p>
+
+            </div>
+
+
+            <div
+                id="workbookList"
+                class="workbook-list">
+
+                <div class="empty">
+
+                    <div class="spinner"></div>
+
+                    Loading workbooks...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DATA VIEW
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2
+                    id="selectedWorkbook">
+                    Select a workbook
+                </h2>
+
+                <p
+                    id="selectedSheet">
+                    Select a worksheet to inspect its records.
+                </p>
+
+            </div>
+
+
+            <div
+                id="sheetBar"
+                class="sheet-bar">
+
+                <div
+                    style="
+                        color:#8a96a0;
+                        font-size:10px;
+                        padding:5px;
+                    ">
+
+                    No workbook selected
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="dataArea"
+                class="empty">
+
+                Select a workbook and worksheet.
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+    let workbooks = [];
+
+    let currentWorkbook = null;
+
+    let currentSheet = null;
+
+
+    /* ============================================================
+       GENERIC API
+    ============================================================ */
+
+
+    async function apiRequest(
+        url
+    ) {
+
+        const response =
+            await fetch(
+                url
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                data.error ||
+                "MLHMS API request failed."
+            );
+
+        }
+
+
+        return data;
+
+    }
+
+
+    /* ============================================================
+       LOAD WORKBOOKS
+    ============================================================ */
+
+
+    async function loadWorkbooks() {
+
+        const list =
+            document.getElementById(
+                "workbookList"
+            );
+
+
+        try {
+
+            const data =
+                await apiRequest(
+                    "/api/database/workbooks"
+                );
+
+
+            workbooks =
+                data.workbooks ||
+                [];
+
+
+            document
+                .getElementById(
+                    "workbookCount"
+                )
+                .textContent =
+                workbooks.length;
+
+
+            document
+                .getElementById(
+                    "sheetCount"
+                )
+                .textContent =
+                workbooks.reduce(
+                    function (
+                        total,
+                        workbook
+                    ) {
+
+                        return (
+                            total +
+                            (
+                                workbook.sheets
+                                    ?.length ||
+                                0
+                            )
+                        );
+
+                    },
+                    0
+                );
+
+
+            list.innerHTML = "";
+
+
+            if (
+                workbooks.length === 0
+            ) {
+
+                list.innerHTML =
+                    `
+                    <div class="empty">
+                        No Excel workbooks found.
+                    </div>
+                    `;
+
+                return;
+
+            }
+
+
+            workbooks.forEach(
+                function (
+                    workbook,
+                    index
+                ) {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.className =
+                        "workbook-item";
+
+
+                    button.innerHTML = `
+
+                        <span
+                            class="workbook-name">
+
+                            ${escapeHtml(
+                                workbook.file
+                            )}
+
+                        </span>
+
+                        <span
+                            class="workbook-meta">
+
+                            ${
+                                workbook.sheets?.length ||
+                                0
+                            }
+                            worksheet(s)
+
+                        </span>
+
+                    `;
+
+
+                    button.onclick =
+                        function () {
+
+                            selectWorkbook(
+                                workbook,
+                                button
+                            );
+
+                        };
+
+
+                    list.appendChild(
+                        button
+                    );
+
+
+                    /*
+                     * Automatically select
+                     * the first workbook.
+                     */
+
+                    if (
+                        index === 0
+                    ) {
+
+                        selectWorkbook(
+                            workbook,
+                            button
+                        );
+
+                    }
+
+                }
+            );
+
+
+        } catch (error) {
+
+            list.innerHTML =
+                `
+                <div class="empty">
+
+                    Unable to load
+                    legacy workbooks.
+
+                    <br><br>
+
+                    <small>
+                        ${escapeHtml(
+                            error.message
+                        )}
+                    </small>
+
+                </div>
+                `;
+
+        }
+
+    }
+
+
+    /* ============================================================
+       SELECT WORKBOOK
+    ============================================================ */
+
+
+    async function selectWorkbook(
+        workbook,
+        button
+    ) {
+
+        currentWorkbook =
+            workbook;
+
+
+        document
+            .querySelectorAll(
+                ".workbook-item"
+            )
+            .forEach(
+                function (item) {
+
+                    item.classList
+                        .remove(
+                            "active"
+                        );
+
+                }
+            );
+
+
+        button.classList
+            .add(
+                "active"
+            );
+
+
+        document
+            .getElementById(
+                "selectedWorkbook"
+            )
+            .textContent =
+            workbook.file;
+
+
+        document
+            .getElementById(
+                "selectedSheet"
+            )
+            .textContent =
+            "Select a worksheet to inspect its records.";
+
+
+        renderSheetButtons(
+            workbook
+        );
+
+
+        /*
+         * Automatically open
+         * the first worksheet.
+         */
+
+        if (
+            workbook.sheets &&
+            workbook.sheets.length
+        ) {
+
+            await loadSheet(
+                workbook.sheets[0]
+            );
+
+        }
+
+    }
+
+
+    /* ============================================================
+       RENDER SHEETS
+    ============================================================ */
+
+
+    function renderSheetButtons(
+        workbook
+    ) {
+
+        const bar =
+            document.getElementById(
+                "sheetBar"
+            );
+
+
+        bar.innerHTML = "";
+
+
+        (
+            workbook.sheets ||
+            []
+        )
+            .forEach(
+                function (
+                    sheet
+                ) {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.className =
+                        "sheet-button";
+
+
+                    button.textContent =
+                        sheet;
+
+
+                    button.onclick =
+                        function () {
+
+                            loadSheet(
+                                sheet
+                            );
+
+                        };
+
+
+                    bar.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* ============================================================
+       LOAD SHEET
+    ============================================================ */
+
+
+    async function loadSheet(
+        sheet
+    ) {
+
+        if (
+            !currentWorkbook
+        ) {
+
+            return;
+
+        }
+
+
+        currentSheet =
+            sheet;
+
+
+        document
+            .getElementById(
+                "selectedSheet"
+            )
+            .textContent =
+            `Worksheet: ${sheet}`;
+
+
+        const dataArea =
+            document.getElementById(
+                "dataArea"
+            );
+
+
+        dataArea.innerHTML =
+            `
+            <div class="empty">
+
+                <div class="spinner"></div>
+
+                Loading legacy records...
+
+            </div>
+            `;
+
+
+        document
+            .querySelectorAll(
+                ".sheet-button"
+            )
+            .forEach(
+                function (
+                    button
+                ) {
+
+                    button.classList
+                        .toggle(
+                            "active",
+                            button.textContent ===
+                            sheet
+                        );
+
+                }
+            );
+
+
+        try {
+
+            const encodedWorkbook =
+                encodeURIComponent(
+                    currentWorkbook.file
+                );
+
+
+            const encodedSheet =
+                encodeURIComponent(
+                    sheet
+                );
+
+
+            const data =
+                await apiRequest(
+                    `/api/database/workbook/${encodedWorkbook}/sheet/${encodedSheet}`
+                );
+
+
+            const rows =
+                data.rows ||
+                [];
+
+
+            document
+                .getElementById(
+                    "recordCount"
+                )
+                .textContent =
+                rows.length;
+
+
+            renderTable(
+                rows
+            );
+
+
+        } catch (error) {
+
+            dataArea.innerHTML =
+                `
+                <div class="empty">
+
+                    Unable to read worksheet.
+
+                    <br><br>
+
+                    <small>
+                        ${escapeHtml(
+                            error.message
+                        )}
+                    </small>
+
+                </div>
+                `;
+
+        }
+
+    }
+
+
+    /* ============================================================
+       TABLE
+    ============================================================ */
+
+
+    function renderTable(
+        rows
+    ) {
+
+        const container =
+            document.getElementById(
+                "dataArea"
+            );
+
+
+        if (
+            rows.length === 0
+        ) {
+
+            container.innerHTML =
+                `
+                <div class="empty">
+                    This worksheet contains no records.
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        /*
+         * Collect all possible columns.
+         */
+
+        const columns =
+            [];
+
+
+        rows.forEach(
+            function (row) {
+
+                Object.keys(
+                    row
+                ).forEach(
+                    function (key) {
+
+                        if (
+                            !columns.includes(
+                                key
+                            )
+                        ) {
+
+                            columns.push(
+                                key
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        let html =
+            `
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+        `;
+
+
+        columns.forEach(
+            function (column) {
+
+                html +=
+                    `
+                    <th>
+                        ${escapeHtml(
+                            column
+                        )}
+                    </th>
+                    `;
+
+            }
+        );
+
+
+        html +=
+            `
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+            `;
+
+
+        rows.forEach(
+            function (row) {
+
+                html +=
+                    "<tr>";
+
+
+                columns.forEach(
+                    function (
+                        column
+                    ) {
+
+                        const value =
+                            row[column] ??
+                            "";
+
+
+                        const normalized =
+                            column
+                                .toLowerCase()
+                                .replace(
+                                    /[\s_-]/g,
+                                    ""
+                                );
+
+
+                        if (
+                            String(
+                                value
+                            ) ===
+                            "[MASKED LEGACY VALUE]" ||
+                            normalized.includes(
+                                "password"
+                            ) ||
+                            normalized.includes(
+                                "secret"
+                            )
+                        ) {
+
+                            html +=
+                                `
+                                <td>
+
+                                    <span
+                                        class="masked">
+
+                                        [MASKED]
+
+                                    </span>
+
+                                </td>
+                                `;
+
+                        } else {
+
+                            html +=
+                                `
+                                <td>
+                                    ${escapeHtml(
+                                        value
+                                    )}
+                                </td>
+                                `;
+
+                        }
+
+                    }
+                );
+
+
+                html +=
+                    "</tr>";
+
+            }
+        );
+
+
+        html +=
+            `
+                    </tbody>
+
+                </table>
+
+            </div>
+            `;
+
+
+        container.innerHTML =
+            html;
+
+    }
+
+
+    /* ============================================================
+       HTML ESCAPING
+    ============================================================ */
+
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(
+            value
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* ============================================================
+       DASHBOARD
+    ============================================================ */
+
+
+    function goBack() {
+
+        window.location.href =
+            "/routes/dashboard.html";
+
+    }
+
+
+    /* ============================================================
+       START
+    ============================================================ */
+
+    loadWorkbooks();
+
+</script>
+
+</body>
+
+</html>
