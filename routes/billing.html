@@ -1,1 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Medical Billing
+    </title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        :root{
+            --navy:#101b24;
+            --navy2:#172631;
+            --navy3:#243944;
+
+            --background:#eef2f5;
+            --white:#ffffff;
+
+            --text:#1f2d36;
+            --muted:#687780;
+
+            --blue:#1976d2;
+            --green:#2e7d32;
+            --orange:#ef6c00;
+            --red:#c62828;
+
+            --border:#d7e0e6;
+        }
+
+        body{
+            min-height:100vh;
+            background:linear-gradient(
+                180deg,
+                #edf1f4,
+                #f8fafc
+            );
+            color:var(--text);
+            font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+        }
+
+        header{
+            height:68px;
+            padding:0 22px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            color:#fff;
+
+            background:linear-gradient(
+                135deg,
+                var(--navy),
+                var(--navy2)
+            );
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.16);
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .brand-logo{
+            width:40px;
+            height:40px;
+
+            display:grid;
+            place-items:center;
+
+            border-radius:10px;
+
+            background:rgba(255,255,255,.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            font-weight:800;
+        }
+
+        .brand-title{
+            font-size:15px;
+            font-weight:700;
+        }
+
+        .brand-subtitle{
+            margin-top:2px;
+            color:#afbec8;
+            font-size:10px;
+        }
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .legacy-badge{
+            padding:6px 9px;
+            border-radius:999px;
+
+            background:#fff3e0;
+            color:#e65100;
+
+            font-size:10px;
+            font-weight:800;
+        }
+
+        .back-button{
+            padding:8px 11px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.12);
+
+            border-radius:7px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color:white;
+
+            font-size:11px;
+            cursor:pointer;
+        }
+
+        .layout{
+            min-height:calc(100vh - 68px);
+            display:flex;
+        }
+
+        aside{
+            width:235px;
+            flex-shrink:0;
+
+            padding:18px 0;
+
+            background:var(--navy);
+            color:white;
+        }
+
+        .sidebar-heading{
+            padding:10px 18px 8px;
+
+            color:#90a4ae;
+
+            font-size:10px;
+            font-weight:800;
+
+            text-transform:uppercase;
+            letter-spacing:.08em;
+        }
+
+        .side-item{
+            width:100%;
+
+            padding:11px 18px;
+
+            border:none;
+            background:transparent;
+
+            color:#dce4e9;
+
+            text-align:left;
+
+            font-size:11px;
+
+            cursor:pointer;
+        }
+
+        .side-item:hover,
+        .side-item.active{
+            background:var(--navy3);
+            color:#fff;
+        }
+
+        main{
+            flex:1;
+            min-width:0;
+            padding:24px;
+        }
+
+        .page-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+
+            margin-bottom:20px;
+        }
+
+        .page-header h1{
+            font-size:25px;
+        }
+
+        .page-header p{
+            margin-top:5px;
+            color:var(--muted);
+            font-size:11px;
+        }
+
+        .system-label{
+            padding:9px 11px;
+
+            border:1px solid var(--border);
+            border-radius:8px;
+
+            background:#fff;
+
+            color:var(--muted);
+
+            font-size:10px;
+        }
+
+        .warning{
+            padding:14px 16px;
+            margin-bottom:17px;
+
+            border-left:4px solid var(--orange);
+
+            background:#fff8e8;
+
+            border-top:1px solid #ffe3ab;
+            border-right:1px solid #ffe3ab;
+            border-bottom:1px solid #ffe3ab;
+
+            border-radius:0 8px 8px 0;
+        }
+
+        .warning strong{
+            display:block;
+
+            margin-bottom:5px;
+
+            color:#965400;
+
+            font-size:12px;
+        }
+
+        .warning p{
+            color:#795a2e;
+
+            font-size:11px;
+
+            line-height:1.55;
+        }
+
+        .stats{
+            display:grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:12px;
+
+            margin-bottom:15px;
+        }
+
+        .stat{
+            padding:16px;
+
+            border:1px solid var(--border);
+            border-radius:9px;
+
+            background:white;
+        }
+
+        .stat-label{
+            color:var(--muted);
+
+            font-size:10px;
+            font-weight:800;
+
+            text-transform:uppercase;
+        }
+
+        .stat-value{
+            margin-top:8px;
+
+            font-size:25px;
+
+            font-weight:800;
+        }
+
+        .green{
+            color:var(--green);
+        }
+
+        .orange{
+            color:var(--orange);
+        }
+
+        .danger{
+            color:var(--red);
+        }
+
+        .card{
+            background:#fff;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:9px;
+
+            box-shadow:
+                0 2px 5px rgba(0,0,0,.035);
+        }
+
+        .card-header{
+            padding:15px 16px;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .card-header h2{
+            font-size:13px;
+        }
+
+        .card-header p{
+            margin-top:4px;
+
+            color:var(--muted);
+
+            font-size:10px;
+        }
+
+        /* =====================================================
+           SEARCH
+        ====================================================== */
+
+        .search-area{
+            padding:17px;
+        }
+
+        .search-row{
+            display:grid;
+
+            grid-template-columns:
+                1fr
+                auto;
+
+            gap:9px;
+        }
+
+        .search-row input{
+            width:100%;
+
+            padding:
+                12px 13px;
+
+            border:
+                1px solid
+                #cbd5dc;
+
+            border-radius:8px;
+
+            outline:none;
+
+            font-size:11px;
+        }
+
+        .search-row input:focus{
+            border-color:var(--blue);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(25,118,210,.08);
+        }
+
+        .button{
+            padding:
+                11px 15px;
+
+            border:none;
+            border-radius:7px;
+
+            font-size:10px;
+            font-weight:800;
+
+            cursor:pointer;
+        }
+
+        .primary{
+            background:var(--blue);
+            color:white;
+        }
+
+        .secondary{
+            background:#eef3f7;
+            color:#42545f;
+
+            border:
+                1px solid
+                #d4dee5;
+        }
+
+        /* =====================================================
+           INVOICE
+        ====================================================== */
+
+        .invoice{
+            display:none;
+            margin-top:15px;
+        }
+
+        .invoice.show{
+            display:block;
+        }
+
+        .invoice-head{
+            padding:17px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-start;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .invoice-title{
+            font-size:20px;
+            font-weight:800;
+        }
+
+        .invoice-subtitle{
+            margin-top:4px;
+
+            color:var(--muted);
+
+            font-size:10px;
+        }
+
+        .invoice-status{
+            padding:
+                5px 8px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+        }
+
+        .invoice-status.paid{
+            background:#e8f5e9;
+            color:#2e7d32;
+        }
+
+        .invoice-status.pending{
+            background:#fff3e0;
+            color:#e65100;
+        }
+
+        .invoice-status.unpaid{
+            background:#ffebee;
+            color:#b71c1c;
+        }
+
+        .invoice-summary{
+            display:grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+        }
+
+        .invoice-field{
+            padding:14px;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            border-right:
+                1px solid #edf1f4;
+        }
+
+        .invoice-field:nth-child(4n){
+            border-right:none;
+        }
+
+        .invoice-field-label{
+            margin-bottom:5px;
+
+            color:var(--muted);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            text-transform:uppercase;
+        }
+
+        .invoice-field-value{
+            color:#334650;
+            font-size:11px;
+        }
+
+        .invoice-lines{
+            padding:16px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,
+        td{
+            padding:
+                10px;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            text-align:left;
+
+            font-size:10px;
+        }
+
+        th{
+            background:#f6f8fa;
+            color:#71808a;
+
+            font-size:9px;
+            font-weight:800;
+
+            text-transform:uppercase;
+        }
+
+        td{
+            color:#374853;
+        }
+
+        .amount{
+            text-align:right;
+            font-variant-numeric:tabular-nums;
+        }
+
+        .invoice-total{
+            display:flex;
+
+            justify-content:flex-end;
+
+            margin-top:13px;
+
+            font-size:14px;
+
+            font-weight:800;
+        }
+
+        .invoice-total span{
+            margin-left:30px;
+            color:#1f2d36;
+        }
+
+        /* =====================================================
+           BILLING RECORDS
+        ====================================================== */
+
+        .records{
+            margin-top:15px;
+        }
+
+        .table-wrap{
+            overflow:auto;
+        }
+
+        .records table{
+            min-width:950px;
+        }
+
+        .badge{
+            display:inline-block;
+
+            padding:4px 7px;
+
+            border-radius:999px;
+
+            font-size:9px;
+
+            font-weight:800;
+        }
+
+        .badge.green{
+            background:#e8f5e9;
+            color:#2e7d32;
+        }
+
+        .badge.orange{
+            background:#fff3e0;
+            color:#e65100;
+        }
+
+        .badge.red{
+            background:#ffebee;
+            color:#b71c1c;
+        }
+
+        .badge.blue{
+            background:#e3f2fd;
+            color:#1565c0;
+        }
+
+        /* =====================================================
+           ISSUES
+        ====================================================== */
+
+        .issues{
+            margin-top:15px;
+        }
+
+        .issues-body{
+            padding:15px;
+        }
+
+        .issue{
+            display:flex;
+
+            gap:9px;
+
+            padding:10px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .issue:last-child{
+            border-bottom:none;
+        }
+
+        .issue-dot{
+            width:8px;
+            height:8px;
+
+            margin-top:4px;
+
+            flex-shrink:0;
+
+            border-radius:50%;
+        }
+
+        .issue strong{
+            display:block;
+
+            margin-bottom:3px;
+
+            font-size:10px;
+        }
+
+        .issue span{
+            display:block;
+
+            color:var(--muted);
+
+            font-size:9px;
+
+            line-height:1.45;
+        }
+
+        footer{
+            margin-top:18px;
+
+            padding-top:12px;
+
+            border-top:
+                1px solid var(--border);
+
+            color:#8a96a0;
+
+            font-size:9px;
+
+            text-align:center;
+        }
+
+        @media(max-width:1000px){
+
+            .stats{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .invoice-summary{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .invoice-field:nth-child(4n){
+                border-right:
+                    1px solid #edf1f4;
+            }
+
+            .invoice-field:nth-child(2n){
+                border-right:none;
+            }
+        }
+
+        @media(max-width:760px){
+
+            aside{
+                display:none;
+            }
+
+            main{
+                padding:15px;
+            }
+        }
+
+        @media(max-width:550px){
+
+            .stats{
+                grid-template-columns:1fr;
+            }
+
+            .search-row{
+                grid-template-columns:1fr;
+            }
+
+            .invoice-summary{
+                grid-template-columns:1fr;
+            }
+
+            .invoice-field{
+                border-right:none !important;
+            }
+
+            .page-header{
+                flex-direction:column;
+                gap:10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Medical Billing
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY BILLING MODULE
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside>
+
+    <div class="sidebar-heading">
+        Clinical
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/patient.html'">
+
+        Patient Records
+
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/appointments.html'">
+
+        Appointments
+
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/lab.html'">
+
+        Laboratory
+
+    </button>
+
+    <button
+        class="side-item active">
+
+        Medical Billing
+
+    </button>
+
+    <div class="sidebar-heading">
+        Administration
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/hr.html'">
+
+        Human Resources
+
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/staff.html'">
+
+        Staff Management
+
+    </button>
+
+    <div class="sidebar-heading">
+        Security
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+</aside>
+
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Medical Billing
+            </h1>
+
+            <p>
+                Meridian General Hospital — Legacy Billing and Invoice Management
+            </p>
+
+        </div>
+
+        <div class="system-label">
+            Billing Module v5.1
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            LEGACY BILLING WARNING
+        </strong>
+
+        <p>
+
+            The billing module uses a separate legacy data store and
+            business logic from the patient-record system. Patient
+            identifiers are manually reconciled between systems.
+            This can create duplicate, outdated or incorrectly linked
+            financial records. All records shown are synthetic.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATISTICS
+    ========================================================== -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Outstanding
+            </div>
+
+            <div class="stat-value">
+                Rs 3.7M
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Open Invoices
+            </div>
+
+            <div class="stat-value orange">
+                184
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Pending Review
+            </div>
+
+            <div class="stat-value danger">
+                27
+            </div>
+
+        </div>
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Reconciliation
+            </div>
+
+            <div class="stat-value danger">
+                72%
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SEARCH
+    ========================================================== -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                Invoice Lookup
+            </h2>
+
+            <p>
+                Search the separate legacy billing register.
+            </p>
+
+        </div>
+
+        <div class="search-area">
+
+            <div class="search-row">
+
+                <input
+                    id="invoiceSearch"
+                    value="MGH-1001"
+                    placeholder="Patient ID or Invoice ID">
+
+                <button
+                    class="button primary"
+                    onclick="searchInvoice()">
+
+                    Search Invoice
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         INVOICE
+    ========================================================== -->
+
+    <section
+        id="invoice"
+        class="card invoice">
+
+        <div class="invoice-head">
+
+            <div>
+
+                <div
+                    id="invoiceTitle"
+                    class="invoice-title">
+                    Invoice
+                </div>
+
+                <div
+                    id="invoiceSubtitle"
+                    class="invoice-subtitle">
+                </div>
+
+            </div>
+
+            <span
+                id="invoiceStatus"
+                class="invoice-status">
+            </span>
+
+        </div>
+
+
+        <div
+            id="invoiceSummary"
+            class="invoice-summary">
+        </div>
+
+
+        <div class="invoice-lines">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th class="amount">
+                            Amount
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="invoiceLines">
+                </tbody>
+
+            </table>
+
+
+            <div class="invoice-total">
+
+                Total
+
+                <span id="invoiceTotal">
+                    Rs 0
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RECORDS
+    ========================================================== -->
+
+    <section class="card records">
+
+        <div class="card-header">
+
+            <h2>
+                Recent Billing Records
+            </h2>
+
+            <p>
+                Synthetic records maintained by the legacy billing module
+            </p>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Invoice
+                        </th>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Consultation
+                        </th>
+
+                        <th>
+                            Laboratory
+                        </th>
+
+                        <th>
+                            Pharmacy
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Last Updated By
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="billingTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         ISSUES
+    ========================================================== -->
+
+    <section class="card issues">
+
+        <div class="card-header">
+
+            <h2>
+                Known Billing Module Issues
+            </h2>
+
+            <p>
+                Findings identified in the legacy environment
+            </p>
+
+        </div>
+
+
+        <div class="issues-body">
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Separate billing identity store
+                    </strong>
+
+                    <span>
+
+                        Billing accounts can exist independently of
+                        the primary hospital identity system.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Manual patient-ID reconciliation
+                    </strong>
+
+                    <span>
+
+                        Billing identifiers are sometimes reconciled
+                        manually with identifiers from the patient system.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Broad billing access
+                    </strong>
+
+                    <span>
+
+                        The legacy USER role can provide access to
+                        billing functions beyond what some departments
+                        require.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Weak change traceability
+                    </strong>
+
+                    <span>
+
+                        Some invoice changes record the last user but
+                        not the complete previous/new state or business reason.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Financial and clinical data are not centrally correlated
+                    </strong>
+
+                    <span>
+
+                        Patient information and financial information
+                        are maintained in separate legacy workflows.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+const billingRecords = [
+
+    {
+        invoice:"INV-001",
+        patient:"MGH-1001",
+        consultation:2500,
+        laboratory:1200,
+        pharmacy:0,
+        status:"Unpaid",
+        updatedBy:"billing02",
+        invoiceDate:"2026-08-12",
+        lines:[
+            {
+                description:"General consultation",
+                category:"Consultation",
+                date:"2026-08-12",
+                amount:2500
+            },
+            {
+                description:"Complete Blood Count",
+                category:"Laboratory",
+                date:"2026-08-12",
+                amount:1200
+            }
+        ]
+    },
+
+    {
+        invoice:"INV-002",
+        patient:"MGH-1002",
+        consultation:3000,
+        laboratory:800,
+        pharmacy:450,
+        status:"Paid",
+        updatedBy:"billing02",
+        invoiceDate:"2026-08-12",
+        lines:[
+            {
+                description:"Cardiology consultation",
+                category:"Consultation",
+                date:"2026-08-12",
+                amount:3000
+            },
+            {
+                description:"Laboratory panel",
+                category:"Laboratory",
+                date:"2026-08-12",
+                amount:800
+            },
+            {
+                description:"Medication",
+                category:"Pharmacy",
+                date:"2026-08-13",
+                amount:450
+            }
+        ]
+    },
+
+    {
+        invoice:"INV-003",
+        patient:"MGH-1003",
+        consultation:2200,
+        laboratory:0,
+        pharmacy:900,
+        status:"Pending",
+        updatedBy:"billing03",
+        invoiceDate:"2026-08-13",
+        lines:[
+            {
+                description:"Orthopaedic consultation",
+                category:"Consultation",
+                date:"2026-08-13",
+                amount:2200
+            },
+            {
+                description:"Medication",
+                category:"Pharmacy",
+                date:"2026-08-13",
+                amount:900
+            }
+        ]
+    }
+
+];
+
+
+function renderBillingTable(){
+
+    const table =
+        document.getElementById(
+            "billingTable"
+        );
+
+    table.innerHTML = "";
+
+    billingRecords.forEach(
+        function(record){
+
+            const total =
+                record.consultation +
+                record.laboratory +
+                record.pharmacy;
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+            let statusClass =
+                "orange";
+
+            if(record.status === "Paid"){
+                statusClass = "green";
+            }
+
+            if(record.status === "Unpaid"){
+                statusClass = "red";
+            }
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(
+                        record.invoice
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        record.patient
+                    )}
+                </td>
+
+                <td>
+                    Rs ${formatMoney(
+                        record.consultation
+                    )}
+                </td>
+
+                <td>
+                    Rs ${formatMoney(
+                        record.laboratory
+                    )}
+                </td>
+
+                <td>
+                    Rs ${formatMoney(
+                        record.pharmacy
+                    )}
+                </td>
+
+                <td>
+                    <strong>
+                        Rs ${formatMoney(
+                            total
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+
+                    <span
+                        class="badge ${statusClass}">
+
+                        ${escapeHtml(
+                            record.status
+                        )}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        record.updatedBy
+                    )}
+                </td>
+
+            `;
+
+            table.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+function searchInvoice(){
+
+    const search =
+        document
+            .getElementById(
+                "invoiceSearch"
+            )
+            .value
+            .trim()
+            .toUpperCase();
+
+
+    const record =
+        billingRecords.find(
+            function(item){
+
+                return (
+                    item.invoice === search ||
+                    item.patient === search
+                );
+
+            }
+        );
+
+
+    if(!record){
+
+        document
+            .getElementById(
+                "invoice"
+            )
+            .classList
+            .remove(
+                "show"
+            );
+
+        alert(
+            "No synthetic billing record found."
+        );
+
+        return;
+
+    }
+
+
+    const total =
+        record.consultation +
+        record.laboratory +
+        record.pharmacy;
+
+
+    document
+        .getElementById(
+            "invoice"
+        )
+        .classList
+        .add(
+            "show"
+        );
+
+
+    document
+        .getElementById(
+            "invoiceTitle"
+        )
+        .textContent =
+        record.invoice;
+
+
+    document
+        .getElementById(
+            "invoiceSubtitle"
+        )
+        .textContent =
+        `Patient reference: ${record.patient}`;
+
+
+    const status =
+        document.getElementById(
+            "invoiceStatus"
+        );
+
+
+    status.textContent =
+        record.status;
+
+
+    status.className =
+        "invoice-status " +
+        (
+            record.status === "Paid"
+                ? "paid"
+                : record.status === "Unpaid"
+                    ? "unpaid"
+                    : "pending"
+        );
+
+
+    const summary =
+        document.getElementById(
+            "invoiceSummary"
+        );
+
+
+    summary.innerHTML = `
+
+        <div class="invoice-field">
+
+            <div class="invoice-field-label">
+                Patient
+            </div>
+
+            <div class="invoice-field-value">
+                ${escapeHtml(
+                    record.patient
+                )}
+            </div>
+
+        </div>
+
+        <div class="invoice-field">
+
+            <div class="invoice-field-label">
+                Invoice Date
+            </div>
+
+            <div class="invoice-field-value">
+                ${escapeHtml(
+                    record.invoiceDate
+                )}
+            </div>
+
+        </div>
+
+        <div class="invoice-field">
+
+            <div class="invoice-field-label">
+                Last Updated
+            </div>
+
+            <div class="invoice-field-value">
+                ${escapeHtml(
+                    record.updatedBy
+                )}
+            </div>
+
+        </div>
+
+        <div class="invoice-field">
+
+            <div class="invoice-field-label">
+                Reconciliation
+            </div>
+
+            <div class="invoice-field-value">
+
+                <span class="badge orange">
+                    MANUAL
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    const lines =
+        document.getElementById(
+            "invoiceLines"
+        );
+
+
+    lines.innerHTML = "";
+
+
+    record.lines.forEach(
+        function(line){
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(
+                        line.description
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        line.category
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        line.date
+                    )}
+                </td>
+
+                <td class="amount">
+                    Rs ${formatMoney(
+                        line.amount
+                    )}
+                </td>
+
+            `;
+
+            lines.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "invoiceTotal"
+        )
+        .textContent =
+        `Rs ${formatMoney(total)}`;
+
+}
+
+
+function formatMoney(
+    value
+){
+
+    return Number(
+        value
+    ).toLocaleString(
+        "en-US",
+        {
+            minimumFractionDigits:0,
+            maximumFractionDigits:0
+        }
+    );
+
+}
+
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+function goDashboard(){
+
+    window.location.href =
+        "/routes/dashboard.html";
+
+}
+
+
+renderBillingTable();
+
+</script>
+
+</body>
+
+</html>
