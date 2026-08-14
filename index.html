@@ -1,1 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>MLHMS | Meridian General Hospital</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #081426;
+            --navy-light: #10243d;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --cyan: #38bdf8;
+            --white: #ffffff;
+            --background: #f3f6fa;
+            --border: #d8e0ea;
+            --text: #172033;
+            --muted: #64748b;
+            --danger: #b91c1c;
+            --warning: #b45309;
+            --success: #166534;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top right, #1e3a5f 0, transparent 28%),
+                linear-gradient(135deg, #07111f, #0b172a 55%, #10243d);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: min(1100px, 100%);
+            min-height: 680px;
+
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.28),
+                0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        /* =========================================================
+           LEFT SIDE
+        ========================================================= */
+
+        .hospital-panel {
+            position: relative;
+            overflow: hidden;
+
+            padding: 60px;
+
+            color: var(--white);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--navy),
+                    var(--navy-light)
+                );
+        }
+
+        .hospital-panel::before,
+        .hospital-panel::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .hospital-panel::before {
+            width: 420px;
+            height: 420px;
+            right: -200px;
+            bottom: -180px;
+        }
+
+        .hospital-panel::after {
+            width: 300px;
+            height: 300px;
+            right: -140px;
+            bottom: -110px;
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 20px;
+
+            font-size: 30px;
+            font-weight: 800;
+
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            margin-bottom: 30px;
+        }
+
+        .hospital-panel h1 {
+            font-size: 42px;
+            line-height: 1.05;
+            letter-spacing: -1px;
+
+            margin-bottom: 16px;
+        }
+
+        .hospital-panel .subtitle {
+            color: #bfdbfe;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .hospital-panel .description {
+            max-width: 470px;
+
+            color: #c7d2e2;
+
+            line-height: 1.75;
+            font-size: 14px;
+        }
+
+        .system-information {
+            margin-top: 50px;
+
+            display: grid;
+            gap: 12px;
+        }
+
+        .info-card {
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-card span {
+            display: block;
+
+            color: var(--cyan);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+
+            margin-bottom: 5px;
+        }
+
+        .info-card strong {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        /* =========================================================
+           RIGHT SIDE
+        ========================================================= */
+
+        .login-panel {
+            padding: 58px 52px;
+
+            background: #ffffff;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 34px;
+        }
+
+        .header h2 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .legacy-badge {
+            padding: 7px 10px;
+
+            border-radius: 999px;
+
+            background: #fff7ed;
+            color: var(--warning);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+        }
+
+        .alert {
+            display: none;
+
+            padding: 12px 14px;
+
+            margin-bottom: 15px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .alert.success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--blue);
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 78px;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 7px;
+            top: 7px;
+
+            padding: 7px 10px;
+
+            border: none;
+            border-radius: 7px;
+
+            background: #f1f5f9;
+
+            color: #334155;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .login-button {
+            width: 100%;
+
+            margin-top: 6px;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                var(--blue),
+                var(--blue-dark)
+            );
+
+            color: white;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px rgba(37, 99, 235, 0.18);
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 12px 22px rgba(37, 99, 235, 0.22);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 26px 0;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 0.08em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #e2e8f0;
+        }
+
+        .signup-button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: var(--text);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+        .signup-button:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .signup-button.hidden {
+            display: none;
+        }
+
+        .footer-note {
+            margin-top: auto;
+            padding-top: 25px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+            line-height: 1.6;
+
+            text-align: center;
+        }
+
+        /* =========================================================
+           MODAL
+        ========================================================= */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+            inset: 0;
+
+            z-index: 9999;
+
+            background: rgba(0, 0, 0, 0.72);
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(540px, 100%);
+
+            max-height: 92vh;
+            overflow-y: auto;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+
+            font-size: 22px;
+        }
+
+        .close-button {
+            width: 32px;
+            height: 32px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #f1f5f9;
+
+            font-size: 18px;
+
+            cursor: pointer;
+        }
+
+        .modal-description {
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 1.55;
+
+            margin-bottom: 20px;
+        }
+
+        .two-column {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+        .password-strength {
+            height: 6px;
+
+            margin-top: 7px;
+
+            border-radius: 999px;
+
+            background: #e2e8f0;
+
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            width: 0;
+            height: 100%;
+
+            background: #ef4444;
+
+            transition: width 0.2s ease;
+        }
+
+        .password-strength-label {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .hospital-panel {
+                display: none;
+            }
+
+            .login-panel {
+                padding: 38px 28px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-panel {
+                padding: 28px 20px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                gap: 12px;
+            }
+
+            .header h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================================================
+         MERIDIAN GENERAL HOSPITAL BRANDING
+    ========================================================== -->
+
+    <section class="hospital-panel">
+
+        <div class="logo">
+            M
+        </div>
+
+        <h1>
+            Meridian<br>
+            General Hospital
+        </h1>
+
+        <div class="subtitle">
+            Meridian Legacy Healthcare Management System
+        </div>
+
+        <p class="description">
+            Integrated access to Meridian General Hospital's patient
+            administration, appointment scheduling, medical billing,
+            laboratory and departmental management services.
+        </p>
+
+        <div class="system-information">
+
+            <div class="info-card">
+                <span>Environment</span>
+                <strong>Legacy Production System</strong>
+            </div>
+
+            <div class="info-card">
+                <span>System Version</span>
+                <strong>MLHMS 4.7.2</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Database</span>
+                <strong>Meridian Legacy Data Store</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Access Classification</span>
+                <strong>Authorized Personnel Only</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         LOGIN PANEL
+    ========================================================== -->
+
+    <section class="login-panel">
+
+        <div class="header">
+
+            <div>
+                <h2>
+                    Sign in
+                </h2>
+
+                <p>
+                    Use your Meridian account
+                </p>
+            </div>
+
+            <span class="legacy-badge">
+                LEGACY SYSTEM
+            </span>
+
+        </div>
+
+        <div
+            id="alert"
+            class="alert">
+        </div>
+
+        <!-- LOGIN FORM -->
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    autocomplete="username"
+                    placeholder="Enter your username"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('password', this)">
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="login-button">
+                Sign in to MLHMS
+            </button>
+
+        </form>
+
+        <!-- =====================================================
+             SIGNUP
+        ====================================================== -->
+
+        <div class="divider">
+            ACCOUNT MANAGEMENT
+        </div>
+
+        <button
+            id="signupButton"
+            class="signup-button"
+            onclick="openSignupModal()">
+            Create First Local Account
+        </button>
+
+        <div class="footer-note">
+
+            Meridian General Hospital — MLHMS<br>
+
+            Legacy healthcare management environment
+
+            <br><br>
+
+            <strong>
+                Academic Case Study — Synthetic Data Only
+            </strong>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =============================================================
+     SIGNUP MODAL
+============================================================== -->
+
+<div
+    id="signupModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h3>
+                Create Legacy Account
+            </h3>
+
+            <button
+                type="button"
+                class="close-button"
+                onclick="closeSignupModal()">
+                ×
+            </button>
+
+        </div>
+
+        <p class="modal-description">
+
+            This represents the original MLHMS local-account
+            registration process.
+
+            All information is fictional and intended only
+            for the academic demonstration.
+
+        </p>
+
+        <form id="signupForm">
+
+            <div class="two-column">
+
+                <div class="form-group">
+
+                    <label for="firstName">
+                        First Name
+                    </label>
+
+                    <input
+                        id="firstName"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="middleName">
+                        Middle Name
+                    </label>
+
+                    <input
+                        id="middleName">
+
+                </div>
+
+            </div>
+
+            <div class="two-column">
+
+                <div class="form-group">
+
+                    <label for="lastName">
+                        Last Name
+                    </label>
+
+                    <input
+                        id="lastName"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Title
+                    </label>
+
+                    <select id="title">
+
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Dr">Dr</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="newUsername">
+                    Username
+                </label>
+
+                <input
+                    id="newUsername"
+                    pattern="[A-Za-z0-9._-]{3,32}"
+                    placeholder="e.g. john.smith"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="newPassword">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        id="newPassword"
+                        type="password"
+                        minlength="8"
+                        required
+                        oninput="calculatePasswordStrength(this.value)">
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword('newPassword', this)">
+                        Show
+                    </button>
+
+                </div>
+
+                <div class="password-strength">
+
+                    <div
+                        id="strengthBar"
+                        class="password-strength-bar">
+                    </div>
+
+                </div>
+
+                <div
+                    id="strengthLabel"
+                    class="password-strength-label">
+                    Password strength: —
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="department">
+                    Department
+                </label>
+
+                <select id="department">
+
+                    <option>IT</option>
+                    <option>Administration</option>
+                    <option>Reception</option>
+                    <option>Laboratory</option>
+                    <option>Billing</option>
+                    <option>Pharmacy</option>
+                    <option>Human Resources</option>
+
+                </select>
+
+            </div>
+
+            <button
+                type="submit"
+                class="login-button">
+                Create Legacy Account
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * MLHMS LEGACY LOGIN FRONTEND
+     *
+     * This frontend communicates with the future Express API.
+     *
+     * Important:
+     * The application is fictional and uses synthetic information only.
+     */
+
+    async function apiRequest(
+        url,
+        options = {}
+    ) {
+
+        const response = await fetch(
+            url,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                ...options
+            }
+        );
+
+        let data = {};
+
+        try {
+
+            data = await response.json();
+
+        } catch {
+
+            data = {};
+
+        }
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "MLHMS request failed."
+            );
+
+        }
+
+        return data;
+    }
+
+
+    function showAlert(
+        message,
+        type = "error"
+    ) {
+
+        const alert =
+            document.getElementById("alert");
+
+        alert.className =
+            "alert show " + type;
+
+        alert.textContent =
+            message;
+    }
+
+
+    function togglePassword(
+        inputId,
+        button
+    ) {
+
+        const input =
+            document.getElementById(inputId);
+
+        if (
+            input.type === "password"
+        ) {
+
+            input.type = "text";
+
+            button.textContent =
+                "Hide";
+
+        } else {
+
+            input.type = "password";
+
+            button.textContent =
+                "Show";
+
+        }
+
+    }
+
+
+    function openSignupModal() {
+
+        document
+            .getElementById("signupModal")
+            .classList
+            .add("show");
+
+    }
+
+
+    function closeSignupModal() {
+
+        document
+            .getElementById("signupModal")
+            .classList
+            .remove("show");
+
+    }
+
+
+    function calculatePasswordStrength(
+        password
+    ) {
+
+        let score = 0;
+
+        if (
+            password.length >= 8
+        ) score++;
+
+        if (
+            /[a-z]/.test(password) &&
+            /[A-Z]/.test(password)
+        ) score++;
+
+        if (
+            /\d/.test(password)
+        ) score++;
+
+        if (
+            /[^A-Za-z0-9]/.test(password)
+        ) score++;
+
+        const widths =
+            [
+                "0%",
+                "25%",
+                "50%",
+                "75%",
+                "100%"
+            ];
+
+        const labels =
+            [
+                "—",
+                "Very Weak",
+                "Weak",
+                "Good",
+                "Strong"
+            ];
+
+        document
+            .getElementById("strengthBar")
+            .style.width =
+            widths[score];
+
+        document
+            .getElementById("strengthLabel")
+            .textContent =
+            "Password strength: " +
+            labels[score];
+
+    }
+
+
+    async function refreshSignupState() {
+
+        try {
+
+            const status =
+                await apiRequest(
+                    "/api/system-status"
+                );
+
+            const button =
+                document.getElementById(
+                    "signupButton"
+                );
+
+            if (
+                status.signupAvailable
+            ) {
+
+                button.classList
+                    .remove("hidden");
+
+            } else {
+
+                button.classList
+                    .add("hidden");
+
+            }
+
+        } catch {
+
+            /*
+             * Keep the UI usable while the
+             * backend is unavailable.
+             */
+
+            showAlert(
+                "MLHMS backend is currently unavailable."
+            );
+
+        }
+
+    }
+
+
+    document
+        .getElementById("signupForm")
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                try {
+
+                    const data =
+                        await apiRequest(
+                            "/api/signup",
+                            {
+                                method: "POST",
+
+                                body: JSON.stringify({
+
+                                    firstName:
+                                        document
+                                        .getElementById(
+                                            "firstName"
+                                        ).value,
+
+                                    middleName:
+                                        document
+                                        .getElementById(
+                                            "middleName"
+                                        ).value,
+
+                                    lastName:
+                                        document
+                                        .getElementById(
+                                            "lastName"
+                                        ).value,
+
+                                    title:
+                                        document
+                                        .getElementById(
+                                            "title"
+                                        ).value,
+
+                                    username:
+                                        document
+                                        .getElementById(
+                                            "newUsername"
+                                        ).value,
+
+                                    password:
+                                        document
+                                        .getElementById(
+                                            "newPassword"
+                                        ).value,
+
+                                    department:
+                                        document
+                                        .getElementById(
+                                            "department"
+                                        ).value
+
+                                })
+                            }
+                        );
+
+                    closeSignupModal();
+
+                    showAlert(
+                        data.message ||
+                        "Legacy account created.",
+                        "success"
+                    );
+
+                    refreshSignupState();
+
+                } catch (error) {
+
+                    showAlert(
+                        error.message
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("loginForm")
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                try {
+
+                    const data =
+                        await apiRequest(
+                            "/api/login",
+                            {
+
+                                method: "POST",
+
+                                body: JSON.stringify({
+
+                                    username:
+                                        document
+                                        .getElementById(
+                                            "username"
+                                        ).value,
+
+                                    password:
+                                        document
+                                        .getElementById(
+                                            "password"
+                                        ).value
+
+                                })
+
+                            }
+                        );
+
+                    /*
+                     * Legacy session storage.
+                     * This will later be replaced
+                     * entirely in H.A.W.K.S.
+                     */
+
+                    sessionStorage.setItem(
+                        "mlhmsToken",
+                        data.token
+                    );
+
+                    sessionStorage.setItem(
+                        "mlhmsUser",
+                        JSON.stringify(
+                            data.user
+                        )
+                    );
+
+                    showAlert(
+                        "Login successful. Redirecting...",
+                        "success"
+                    );
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "/routes/dashboard.html";
+
+                        },
+                        600
+                    );
+
+                } catch (error) {
+
+                    showAlert(
+                        error.message
+                    );
+
+                }
+
+            }
+        );
+
+
+    document
+        .getElementById("signupModal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target === this
+                ) {
+
+                    closeSignupModal();
+
+                }
+
+            }
+        );
+
+
+    /*
+     * Check whether the legacy database already
+     * contains a user.
+     */
+
+    refreshSignupState();
+
+</script>
+
+</body>
+</html>
