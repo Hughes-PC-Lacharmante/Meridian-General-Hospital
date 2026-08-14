@@ -1,1 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Access Management
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #101b24;
+            --navy2: #172631;
+            --navy3: #243944;
+
+            --background: #eef2f5;
+            --white: #ffffff;
+
+            --text: #1f2d36;
+            --muted: #687780;
+
+            --blue: #1976d2;
+            --blueLight: #e7f1fb;
+
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+
+            --border: #d7e0e6;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafc
+                );
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color:
+                var(--text);
+
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+
+            height: 68px;
+
+            padding:
+                0 22px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            color:
+                #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .16
+                );
+
+        }
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+        .brand-logo {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+
+            font-weight:
+                800;
+
+        }
+
+        .brand-title {
+
+            font-size:
+                15px;
+
+            font-weight:
+                700;
+
+        }
+
+        .brand-subtitle {
+
+            margin-top:
+                2px;
+
+            color:
+                #afbec8;
+
+            font-size:
+                10px;
+
+        }
+
+        .header-right {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+        }
+
+        .legacy-badge {
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+        }
+
+        .back-button {
+
+            padding:
+                8px 11px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            border-radius:
+                7px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+
+            color:
+                white;
+
+            cursor:
+                pointer;
+
+            font-size:
+                11px;
+
+        }
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+
+            min-height:
+                calc(
+                    100vh - 68px
+                );
+
+            display:
+                flex;
+
+        }
+
+        aside {
+
+            width:
+                235px;
+
+            flex-shrink:
+                0;
+
+            background:
+                var(--navy);
+
+            color:
+                white;
+
+            padding:
+                18px 0;
+
+        }
+
+        .sidebar-heading {
+
+            padding:
+                10px 18px 8px;
+
+            color:
+                #90a4ae;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .08em;
+
+        }
+
+        .side-item {
+
+            width:
+                100%;
+
+            border:
+                none;
+
+            background:
+                transparent;
+
+            color:
+                #dce4e9;
+
+            padding:
+                11px 18px;
+
+            text-align:
+                left;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+
+        }
+
+        .side-item:hover,
+        .side-item.active {
+
+            background:
+                var(--navy3);
+
+            color:
+                #fff;
+
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+
+            flex:
+                1;
+
+            min-width:
+                0;
+
+            padding:
+                24px;
+
+        }
+
+        .page-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            margin-bottom:
+                20px;
+
+        }
+
+        .page-header h1 {
+
+            font-size:
+                25px;
+
+        }
+
+        .page-header p {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+        .system-label {
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            background:
+                var(--white);
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+
+            padding:
+                14px 16px;
+
+            margin-bottom:
+                17px;
+
+            border-left:
+                4px solid
+                var(--red);
+
+            background:
+                #fff1f1;
+
+            border-top:
+                1px solid
+                #ffd0d0;
+
+            border-right:
+                1px solid
+                #ffd0d0;
+
+            border-bottom:
+                1px solid
+                #ffd0d0;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+        .warning strong {
+
+            color:
+                #9f1d1d;
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            font-size:
+                12px;
+
+        }
+
+        .warning p {
+
+            color:
+                #7b3030;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+        /* =========================================================
+           STATS
+        ========================================================== */
+
+        .stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap:
+                12px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+        .stat {
+
+            padding:
+                16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            background:
+                white;
+
+        }
+
+        .stat-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+        }
+
+        .stat-value {
+
+            margin-top:
+                8px;
+
+            font-size:
+                25px;
+
+            font-weight:
+                800;
+
+        }
+
+        .danger {
+
+            color:
+                var(--red);
+
+        }
+
+        .orange {
+
+            color:
+                var(--orange);
+
+        }
+
+        /* =========================================================
+           CARDS
+        ========================================================== */
+
+        .card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .035
+                );
+
+        }
+
+        .card-header {
+
+            padding:
+                15px 16px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .card-header h2 {
+
+            font-size:
+                13px;
+
+        }
+
+        .card-header p {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+        /* =========================================================
+           CONTENT GRID
+        ========================================================== */
+
+        .content-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1.35fr
+                .65fr;
+
+            gap:
+                15px;
+
+        }
+
+        .table-wrap {
+
+            overflow:
+                auto;
+
+        }
+
+        table {
+
+            width:
+                100%;
+
+            min-width:
+                750px;
+
+            border-collapse:
+                collapse;
+
+        }
+
+        th,
+        td {
+
+            padding:
+                10px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            text-align:
+                left;
+
+            font-size:
+                10px;
+
+        }
+
+        th {
+
+            background:
+                #f6f8fa;
+
+            color:
+                #71808a;
+
+            text-transform:
+                uppercase;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+        td {
+
+            color:
+                #364650;
+
+        }
+
+        .badge {
+
+            display:
+                inline-block;
+
+            padding:
+                4px 7px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+        .badge.red {
+
+            background:
+                #ffebee;
+
+            color:
+                #b71c1c;
+
+        }
+
+        .badge.orange {
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+        }
+
+        .badge.green {
+
+            background:
+                #e8f5e9;
+
+            color:
+                #2e7d32;
+
+        }
+
+        .badge.blue {
+
+            background:
+                #e3f2fd;
+
+            color:
+                #1565c0;
+
+        }
+
+        /* =========================================================
+           ACCESS MODEL
+        ========================================================== */
+
+        .access-model {
+
+            padding:
+                16px;
+
+        }
+
+        .role-box {
+
+            padding:
+                13px;
+
+            margin-bottom:
+                10px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            background:
+                #fbfcfd;
+
+        }
+
+        .role-box:last-child {
+
+            margin-bottom:
+                0;
+
+        }
+
+        .role-title {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            margin-bottom:
+                7px;
+
+        }
+
+        .role-title strong {
+
+            font-size:
+                11px;
+
+        }
+
+        .permissions {
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.7;
+
+            font-size:
+                10px;
+
+        }
+
+        /* =========================================================
+           ISSUE LIST
+        ========================================================== */
+
+        .issue-list {
+
+            padding:
+                15px;
+
+        }
+
+        .issue {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            padding:
+                11px 0;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .issue:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+        .issue-dot {
+
+            width:
+                8px;
+
+            height:
+                8px;
+
+            margin-top:
+                4px;
+
+            border-radius:
+                50%;
+
+            flex-shrink:
+                0;
+
+        }
+
+        .issue-content strong {
+
+            display:
+                block;
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                3px;
+
+        }
+
+        .issue-content span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            line-height:
+                1.45;
+
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top:
+                18px;
+
+            padding-top:
+                12px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            text-align:
+                center;
+
+            color:
+                #8a96a0;
+
+            font-size:
+                9px;
+
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (
+            max-width: 1000px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+        @media (
+            max-width: 760px
+        ) {
+
+            aside {
+
+                display:
+                    none;
+
+            }
+
+            main {
+
+                padding:
+                    15px;
+
+            }
+
+        }
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .page-header {
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Access Management
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY ACCESS CONTROL
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+            ← Dashboard
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside>
+
+    <div class="sidebar-heading">
+        Security
+    </div>
+
+
+    <button
+        class="side-item active">
+        Access Management
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/database.html'">
+        Database
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/active_directory.html'">
+        Active Directory
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/login-log.html'">
+        Login Logs
+    </button>
+
+
+    <div class="sidebar-heading">
+        Password
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/password_evaluator.html'">
+        Password Evaluator
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/password_generator.html'">
+        Password Generator
+    </button>
+
+</aside>
+
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Access Management
+            </h1>
+
+            <p>
+                User privileges, legacy roles and access governance
+            </p>
+
+        </div>
+
+
+        <div class="system-label">
+            MLHMS v4.7.2
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            LEGACY ACCESS CONTROL WARNING
+        </strong>
+
+        <p>
+            MLHMS uses a simplified role structure that was
+            expanded over time without a consistent enterprise
+            authorization model. Several accounts may retain
+            privileges that are no longer required.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Active Accounts
+            </div>
+
+            <div
+                id="activeUsers"
+                class="stat-value">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Administrators
+            </div>
+
+            <div
+                id="adminUsers"
+                class="stat-value danger">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Unreviewed
+            </div>
+
+            <div class="stat-value orange">
+                71
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                MFA Coverage
+            </div>
+
+            <div class="stat-value danger">
+                0%
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="content-grid">
+
+
+        <!-- =====================================================
+             USERS
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    User Access Register
+                </h2>
+
+                <p>
+                    Legacy account inventory
+                </p>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Username
+                            </th>
+
+                            <th>
+                                Name
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Role
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Review
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="userTable">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                style="
+                                    text-align:center;
+                                    color:#8a96a0;
+                                    padding:35px;
+                                ">
+
+                                Loading legacy accounts...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ROLE MODEL
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Legacy Role Model
+                </h2>
+
+                <p>
+                    Coarse authorization structure
+                </p>
+
+            </div>
+
+
+            <div class="access-model">
+
+
+                <div class="role-box">
+
+                    <div class="role-title">
+
+                        <strong>
+                            ADMIN
+                        </strong>
+
+                        <span class="badge red">
+                            HIGH PRIVILEGE
+                        </span>
+
+                    </div>
+
+                    <div class="permissions">
+
+                        Full system administration<br>
+                        User management<br>
+                        Configuration access<br>
+                        Database access<br>
+                        Department modules
+
+                    </div>
+
+                </div>
+
+
+                <div class="role-box">
+
+                    <div class="role-title">
+
+                        <strong>
+                            USER
+                        </strong>
+
+                        <span class="badge orange">
+                            BROAD ACCESS
+                        </span>
+
+                    </div>
+
+                    <div class="permissions">
+
+                        Patient records<br>
+                        Appointments<br>
+                        Billing<br>
+                        Selected administration pages
+
+                    </div>
+
+                </div>
+
+
+                <div class="role-box">
+
+                    <div class="role-title">
+
+                        <strong>
+                            READONLY
+                        </strong>
+
+                        <span class="badge blue">
+                            LIMITED
+                        </span>
+
+                    </div>
+
+                    <div class="permissions">
+
+                        View selected records<br>
+                        Reporting<br>
+                        No reliable record-level enforcement
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <div class="card"
+         style="margin-top:15px;">
+
+        <div class="card-header">
+
+            <h2>
+                Known Access-Control Issues
+            </h2>
+
+            <p>
+                Findings collected during the legacy system review
+            </p>
+
+        </div>
+
+
+        <div class="issue-list">
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div class="issue-content">
+
+                    <strong>
+                        Excessive administrative privilege
+                    </strong>
+
+                    <span>
+                        Several IT accounts have unrestricted
+                        administrative access across multiple modules.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div class="issue-content">
+
+                    <strong>
+                        Former staff account detected
+                    </strong>
+
+                    <span>
+                        Account termination is not consistently synchronized
+                        between departmental applications.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div class="issue-content">
+
+                    <strong>
+                        No multi-factor authentication
+                    </strong>
+
+                    <span>
+                        The legacy authentication model relies primarily
+                        on username and password credentials.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div class="issue-content">
+
+                    <strong>
+                        Role definitions are inconsistent
+                    </strong>
+
+                    <span>
+                        Different modules interpret USER and ADMIN
+                        permissions differently.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div class="issue-content">
+
+                    <strong>
+                        Weak record-level authorization
+                    </strong>
+
+                    <span>
+                        Some legacy extensions rely on user interface
+                        restrictions rather than server-side authorization.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+    async function loadUsers() {
+
+        const table =
+            document.getElementById(
+                "userTable"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/users"
+                );
+
+
+            if (
+                !response.ok
+            ) {
+
+                throw new Error(
+                    "Unable to load user register."
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const users =
+                data.users ||
+                [];
+
+
+            document
+                .getElementById(
+                    "activeUsers"
+                )
+                .textContent =
+                users.filter(
+                    function(user) {
+
+                        return (
+                            user.status ===
+                            "Active"
+                        );
+
+                    }
+                ).length;
+
+
+            document
+                .getElementById(
+                    "adminUsers"
+                )
+                .textContent =
+                users.filter(
+                    function(user) {
+
+                        return (
+                            String(
+                                user.role
+                            )
+                            .toLowerCase()
+                            .includes(
+                                "admin"
+                            )
+                        );
+
+                    }
+                ).length;
+
+
+            if (
+                users.length === 0
+            ) {
+
+                table.innerHTML =
+                    `
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            style="
+                                text-align:center;
+                                color:#8a96a0;
+                                padding:35px;
+                            ">
+
+                            No user accounts found.
+
+                        </td>
+
+                    </tr>
+                    `;
+
+                return;
+
+            }
+
+
+            table.innerHTML = "";
+
+
+            users.forEach(
+                function(user) {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const reviewState =
+                        user.username ===
+                        "former.user"
+                            ? "OVERDUE"
+                            : "UNKNOWN";
+
+
+                    const reviewClass =
+                        reviewState ===
+                        "OVERDUE"
+                            ? "red"
+                            : "orange";
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            ${escapeHtml(
+                                user.username
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                user.name
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                user.department
+                            )}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="badge ${
+                                    String(
+                                        user.role
+                                    )
+                                    .toLowerCase()
+                                    .includes(
+                                        "admin"
+                                    )
+                                        ? "red"
+                                        : "blue"
+                                }">
+
+                                ${escapeHtml(
+                                    user.role
+                                )}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="badge ${
+                                    user.status ===
+                                    "Active"
+                                        ? "green"
+                                        : "red"
+                                }">
+
+                                ${escapeHtml(
+                                    user.status
+                                )}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="badge ${reviewClass}">
+
+                                ${reviewState}
+
+                            </span>
+
+                        </td>
+
+                    `;
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            table.innerHTML =
+                `
+                <tr>
+
+                    <td
+                        colspan="6"
+                        style="
+                            text-align:center;
+                            color:#c62828;
+                            padding:35px;
+                        ">
+
+                        ${escapeHtml(
+                            error.message
+                        )}
+
+                    </td>
+
+                </tr>
+                `;
+
+        }
+
+    }
+
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(
+            value ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    function goDashboard() {
+
+        window.location.href =
+            "/routes/dashboard.html";
+
+    }
+
+
+    loadUsers();
+
+</script>
+
+
+</body>
+
+</html>
