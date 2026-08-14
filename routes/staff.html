@@ -1,1 +1,2399 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Staff Management
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --navy: #101b24;
+            --navy2: #172631;
+            --navy3: #243944;
+
+            --white: #ffffff;
+            --text: #1f2d36;
+            --muted: #687780;
+
+            --blue: #1976d2;
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+            --purple: #6a1b9a;
+
+            --border: #d7e0e6;
+
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafc
+                );
+
+            color: var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+
+            height: 68px;
+
+            padding: 0 22px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.16);
+
+        }
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+        .brand-logo {
+
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            font-weight: 800;
+
+        }
+
+        .brand-title {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+        }
+
+        .brand-subtitle {
+
+            margin-top: 2px;
+
+            color: #afbec8;
+
+            font-size: 10px;
+
+        }
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+        .legacy-badge {
+
+            padding: 6px 9px;
+
+            border-radius: 999px;
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+        .back-button {
+
+            padding: 8px 11px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.12);
+
+            border-radius: 7px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+        }
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+
+            min-height:
+                calc(100vh - 68px);
+
+            display: flex;
+
+        }
+
+        aside {
+
+            width: 235px;
+
+            flex-shrink: 0;
+
+            padding: 18px 0;
+
+            background: var(--navy);
+
+            color: white;
+
+        }
+
+        .sidebar-heading {
+
+            padding:
+                10px 18px 8px;
+
+            color: #90a4ae;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+        }
+
+        .side-item {
+
+            width: 100%;
+
+            padding:
+                11px 18px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #dce4e9;
+
+            text-align: left;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+        }
+
+        .side-item:hover,
+        .side-item.active {
+
+            background: var(--navy3);
+
+            color: white;
+
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 24px;
+
+        }
+
+        .page-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            margin-bottom: 20px;
+
+        }
+
+        .page-header h1 {
+
+            font-size: 25px;
+
+        }
+
+        .page-header p {
+
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+        }
+
+        .system-label {
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 8px;
+
+            background: white;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+
+            padding:
+                14px 16px;
+
+            margin-bottom:
+                17px;
+
+            border-left:
+                4px solid
+                var(--orange);
+
+            background:
+                #fff8e8;
+
+            border-top:
+                1px solid #ffe3ab;
+
+            border-right:
+                1px solid #ffe3ab;
+
+            border-bottom:
+                1px solid #ffe3ab;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+        .warning strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #965400;
+
+            font-size: 12px;
+
+        }
+
+        .warning p {
+
+            color: #795a2e;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+
+        }
+
+        /* =========================================================
+           STATS
+        ========================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .stat {
+
+            padding: 16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            background: white;
+
+        }
+
+        .stat-label {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        .stat-value {
+
+            margin-top: 8px;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+        }
+
+        .green {
+            color: var(--green);
+        }
+
+        .orange {
+            color: var(--orange);
+        }
+
+        .red {
+            color: var(--red);
+        }
+
+        .purple {
+            color: var(--purple);
+        }
+
+        /* =========================================================
+           CARD
+        ========================================================== */
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(0,0,0,.035);
+
+        }
+
+        .card-header {
+
+            padding:
+                15px 16px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .card-header h2 {
+
+            font-size: 13px;
+
+        }
+
+        .card-header p {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        /* =========================================================
+           SEARCH
+        ========================================================== */
+
+        .search-body {
+
+            padding: 17px;
+
+        }
+
+        .search-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                auto;
+
+            gap: 9px;
+
+        }
+
+        .search-row input {
+
+            width: 100%;
+
+            padding:
+                12px 13px;
+
+            border:
+                1px solid
+                #cbd5dc;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 11px;
+
+        }
+
+        .search-row input:focus {
+
+            border-color: var(--blue);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(25,118,210,.08);
+
+        }
+
+        .button {
+
+            padding:
+                11px 15px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+        }
+
+        .primary {
+
+            background: var(--blue);
+
+            color: white;
+
+        }
+
+        /* =========================================================
+           STAFF RESULT
+        ========================================================== */
+
+        .staff-result {
+
+            display: none;
+
+            margin-top: 15px;
+
+        }
+
+        .staff-result.show {
+
+            display: block;
+
+        }
+
+        .staff-head {
+
+            padding: 17px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+        }
+
+        .staff-name {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+        }
+
+        .staff-reference {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        .status {
+
+            padding:
+                5px 8px;
+
+            border-radius:
+                999px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+        }
+
+        .status.active {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+        }
+
+        .status.leave {
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+        }
+
+        .status.terminated {
+
+            background: #ffebee;
+
+            color: #b71c1c;
+
+        }
+
+        .staff-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+        }
+
+        .field {
+
+            padding: 14px;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            border-right:
+                1px solid #edf1f4;
+
+        }
+
+        .field:nth-child(3n) {
+
+            border-right: none;
+
+        }
+
+        .field-label {
+
+            margin-bottom: 5px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        .field-value {
+
+            color: #324651;
+
+            font-size: 11px;
+
+        }
+
+        /* =========================================================
+           STAFF TABLE
+        ========================================================== */
+
+        .staff-register {
+
+            margin-top: 15px;
+
+        }
+
+        .table-wrap {
+
+            overflow: auto;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            min-width: 1100px;
+
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+
+            padding: 10px;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            text-align: left;
+
+            font-size: 10px;
+
+        }
+
+        th {
+
+            background: #f6f8fa;
+
+            color: #71808a;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        td {
+
+            color: #374853;
+
+        }
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 4px 7px;
+
+            border-radius: 999px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+        }
+
+        .badge.green {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+        }
+
+        .badge.orange {
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+        }
+
+        .badge.red {
+
+            background: #ffebee;
+
+            color: #b71c1c;
+
+        }
+
+        .badge.blue {
+
+            background: #e3f2fd;
+
+            color: #1565c0;
+
+        }
+
+        .badge.purple {
+
+            background: #f3e5f5;
+
+            color: #6a1b9a;
+
+        }
+
+        /* =========================================================
+           PERMISSIONS
+        ========================================================== */
+
+        .permission-grid {
+
+            margin-top: 15px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+        }
+
+        .permission-card {
+
+            padding: 15px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            background: white;
+
+        }
+
+        .permission-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 9px;
+
+        }
+
+        .permission-title strong {
+
+            font-size: 11px;
+
+        }
+
+        .permission-list {
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.7;
+
+            margin-left: 15px;
+
+        }
+
+        /* =========================================================
+           SECURITY ISSUES
+        ========================================================== */
+
+        .issues {
+
+            margin-top: 15px;
+
+        }
+
+        .issues-body {
+
+            padding: 15px;
+
+        }
+
+        .issue {
+
+            display: flex;
+
+            gap: 9px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+        }
+
+        .issue:last-child {
+
+            border-bottom: none;
+
+        }
+
+        .issue-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            margin-top: 4px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+        }
+
+        .issue strong {
+
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 10px;
+
+        }
+
+        .issue span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top: 18px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            color: #8a96a0;
+
+            font-size: 9px;
+
+            text-align: center;
+
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media(max-width:1000px){
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+            .staff-grid {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+            .field:nth-child(3n){
+
+                border-right:
+                    1px solid #edf1f4;
+
+            }
+
+            .field:nth-child(2n){
+
+                border-right:none;
+
+            }
+
+            .permission-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+        }
+
+        @media(max-width:760px){
+
+            aside {
+
+                display: none;
+
+            }
+
+            main {
+
+                padding:15px;
+
+            }
+
+        }
+
+        @media(max-width:550px){
+
+            .stats,
+            .staff-grid,
+            .permission-grid {
+
+                grid-template-columns:1fr;
+
+            }
+
+            .field {
+
+                border-right:none !important;
+
+            }
+
+            .search-row {
+
+                grid-template-columns:1fr;
+
+            }
+
+            .page-header {
+
+                flex-direction:column;
+
+                gap:10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Staff Management
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY STAFF MODULE
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside>
+
+    <div class="sidebar-heading">
+        Administration
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/hr.html'">
+
+        Human Resources
+
+    </button>
+
+
+    <button
+        class="side-item active">
+
+        Staff Management
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/active_directory.html'">
+
+        Active Directory
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Clinical
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/patient.html'">
+
+        Patient Records
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/lab.html'">
+
+        Laboratory
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/billing.html'">
+
+        Billing
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Security
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+
+</aside>
+
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Staff Management
+            </h1>
+
+            <p>
+                Meridian General Hospital — Legacy Workforce Module
+            </p>
+
+        </div>
+
+
+        <div class="system-label">
+            Staff Module v3.1
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            LEGACY STAFF DATA WARNING
+        </strong>
+
+        <p>
+
+            The Staff Management module maintains its own representation
+            of employees, departmental roles and permissions. Changes
+            made here are not guaranteed to propagate to HR, Active
+            Directory or every MLHMS extension.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATS
+    ========================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Staff Records
+            </div>
+
+            <div class="stat-value">
+                386
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Active Staff
+            </div>
+
+            <div
+                id="activeStaff"
+                class="stat-value green">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Pending Reviews
+            </div>
+
+            <div class="stat-value orange">
+                34
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Permission Drift
+            </div>
+
+            <div class="stat-value red">
+                19%
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         SEARCH
+    ========================================================== -->
+
+    <section class="card">
+
+
+        <div class="card-header">
+
+            <h2>
+                Staff Search
+            </h2>
+
+            <p>
+                Search the local MLHMS staff register.
+            </p>
+
+        </div>
+
+
+        <div class="search-body">
+
+            <div class="search-row">
+
+                <input
+                    id="staffId"
+                    value="STF-001"
+                    placeholder="e.g. STF-001">
+
+
+                <button
+                    class="button primary"
+                    onclick="searchStaff()">
+
+                    Search Staff
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RESULT
+    ========================================================== -->
+
+    <section
+        id="staffResult"
+        class="card staff-result">
+
+
+        <div class="staff-head">
+
+            <div>
+
+                <div
+                    id="staffName"
+                    class="staff-name">
+                </div>
+
+                <div
+                    id="staffReference"
+                    class="staff-reference">
+                </div>
+
+            </div>
+
+
+            <span
+                id="staffStatus"
+                class="status">
+            </span>
+
+        </div>
+
+
+        <div
+            id="staffGrid"
+            class="staff-grid">
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         STAFF TABLE
+    ========================================================== -->
+
+    <section class="card staff-register">
+
+
+        <div class="card-header">
+
+            <h2>
+                Staff Register
+            </h2>
+
+            <p>
+                Synthetic staff records maintained by MLHMS.
+            </p>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Staff ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Position
+                        </th>
+
+                        <th>
+                            Manager
+                        </th>
+
+                        <th>
+                            Employment
+                        </th>
+
+                        <th>
+                            MLHMS Role
+                        </th>
+
+                        <th>
+                            Permission Review
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="staffTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PERMISSIONS
+    ========================================================== -->
+
+    <section class="permission-grid">
+
+
+        <div class="permission-card">
+
+            <div class="permission-title">
+
+                <strong>
+                    Clinical Staff
+                </strong>
+
+                <span class="badge blue">
+                    USER
+                </span>
+
+            </div>
+
+            <ul class="permission-list">
+
+                <li>
+                    Patient records
+                </li>
+
+                <li>
+                    Appointments
+                </li>
+
+                <li>
+                    Laboratory
+                </li>
+
+                <li>
+                    Departmental reporting
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="permission-card">
+
+            <div class="permission-title">
+
+                <strong>
+                    Administration
+                </strong>
+
+                <span class="badge orange">
+                    USER+
+                </span>
+
+            </div>
+
+            <ul class="permission-list">
+
+                <li>
+                    Billing
+                </li>
+
+                <li>
+                    Staff information
+                </li>
+
+                <li>
+                    Reporting
+                </li>
+
+                <li>
+                    Selected administration
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="permission-card">
+
+            <div class="permission-title">
+
+                <strong>
+                    System Administration
+                </strong>
+
+                <span class="badge red">
+                    ADMIN
+                </span>
+
+            </div>
+
+            <ul class="permission-list">
+
+                <li>
+                    Configuration
+                </li>
+
+                <li>
+                    Database
+                </li>
+
+                <li>
+                    User access
+                </li>
+
+                <li>
+                    Extensions
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =========================================================
+         ISSUES
+    ========================================================== -->
+
+    <section class="card issues">
+
+
+        <div class="card-header">
+
+            <h2>
+                Staff Management Security Issues
+            </h2>
+
+            <p>
+                Legacy findings associated with workforce administration.
+            </p>
+
+        </div>
+
+
+        <div class="issues-body">
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Duplicate employee records
+                    </strong>
+
+                    <span>
+
+                        Staff records can differ between HR and the
+                        local MLHMS staff register.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Permission drift
+                    </strong>
+
+                    <span>
+
+                        Department or position changes can leave old
+                        privileges assigned to employees.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Local role interpretation
+                    </strong>
+
+                    <span>
+
+                        The Staff module may interpret USER, USER+
+                        and ADMIN differently from other MLHMS modules.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Manual approval workflow
+                    </strong>
+
+                    <span>
+
+                        Privilege changes often require manual
+                        communication between HR, IT and department managers.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        No centralized role authority
+                    </strong>
+
+                    <span>
+
+                        There is no single authoritative source defining
+                        which application permissions belong to each staff role.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+    const staffMembers = [
+
+        {
+            id:
+                "STF-001",
+
+            name:
+                "Cedric Lacharmante",
+
+            department:
+                "IT",
+
+            position:
+                "System Administrator",
+
+            manager:
+                "IT Manager",
+
+            employment:
+                "Permanent",
+
+            status:
+                "Active",
+
+            role:
+                "ADMIN",
+
+            review:
+                "OVERDUE",
+
+            email:
+                "cedric.admin@meridian.example",
+
+            ad:
+                "Domain Admin",
+
+            lastReview:
+                "Unknown"
+
+        },
+
+
+        {
+            id:
+                "STF-002",
+
+            name:
+                "Sarah Morgan",
+
+            department:
+                "Reception",
+
+            position:
+                "Reception Officer",
+
+            manager:
+                "Reception Supervisor",
+
+            employment:
+                "Permanent",
+
+            status:
+                "Active",
+
+            role:
+                "USER",
+
+            review:
+                "CURRENT",
+
+            email:
+                "s.morgan@meridian.example",
+
+            ad:
+                "Reception",
+
+            lastReview:
+                "2026-06-15"
+
+        },
+
+
+        {
+            id:
+                "STF-003",
+
+            name:
+                "Daniel Green",
+
+            department:
+                "Laboratory",
+
+            position:
+                "Laboratory Technician",
+
+            manager:
+                "Laboratory Manager",
+
+            employment:
+                "Permanent",
+
+            status:
+                "Active",
+
+            role:
+                "USER+",
+
+            review:
+                "OVERDUE",
+
+            email:
+                "d.green@meridian.example",
+
+            ad:
+                "Laboratory",
+
+            lastReview:
+                "2025-11-02"
+
+        },
+
+
+        {
+            id:
+                "STF-004",
+
+            name:
+                "Former User",
+
+            department:
+                "Former Staff",
+
+            position:
+                "Former Employee",
+
+            manager:
+                "HR Manager",
+
+            employment:
+                "Terminated",
+
+            status:
+                "Terminated",
+
+            role:
+                "USER",
+
+            review:
+                "FAILED",
+
+            email:
+                "former.user@meridian.example",
+
+            ad:
+                "Disabled",
+
+            lastReview:
+                "Never"
+
+        },
+
+
+        {
+            id:
+                "STF-005",
+
+            name:
+                "Michael Patel",
+
+            department:
+                "Finance",
+
+            position:
+                "Finance Officer",
+
+            manager:
+                "Finance Manager",
+
+            employment:
+                "Permanent",
+
+            status:
+                "Active",
+
+            role:
+                "USER+",
+
+            review:
+                "OVERDUE",
+
+            email:
+                "m.patel@meridian.example",
+
+            ad:
+                "Finance",
+
+            lastReview:
+                "2025-10-12"
+
+        }
+
+    ];
+
+
+    function renderStaff(){
+
+        const table =
+            document.getElementById(
+                "staffTable"
+            );
+
+
+        table.innerHTML =
+            "";
+
+
+        let active =
+            0;
+
+
+        staffMembers.forEach(
+            function(staff){
+
+                if(
+                    staff.status ===
+                    "Active"
+                ){
+
+                    active++;
+
+                }
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const statusClass =
+                    staff.status ===
+                    "Active"
+                        ? "green"
+                        : "red";
+
+
+                const reviewClass =
+                    staff.review ===
+                    "CURRENT"
+                        ? "green"
+                        : staff.review ===
+                          "FAILED"
+                            ? "red"
+                            : "orange";
+
+
+                const roleClass =
+                    staff.role ===
+                    "ADMIN"
+                        ? "red"
+                        : staff.role ===
+                          "USER+"
+                            ? "orange"
+                            : "blue";
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHtml(
+                            staff.id
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            staff.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            staff.department
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            staff.position
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            staff.manager
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${statusClass}">
+
+                            ${escapeHtml(
+                                staff.status
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${roleClass}">
+
+                            ${escapeHtml(
+                                staff.role
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${reviewClass}">
+
+                            ${escapeHtml(
+                                staff.review
+                            )}
+
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                table.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "activeStaff"
+            )
+            .textContent =
+            active;
+
+    }
+
+
+    function searchStaff(){
+
+        const id =
+            document
+                .getElementById(
+                    "staffId"
+                )
+                .value
+                .trim()
+                .toUpperCase();
+
+
+        const staff =
+            staffMembers.find(
+                function(item){
+
+                    return (
+                        item.id ===
+                        id
+                    );
+
+                }
+            );
+
+
+        const result =
+            document.getElementById(
+                "staffResult"
+            );
+
+
+        if(!staff){
+
+            result.classList.remove(
+                "show"
+            );
+
+            alert(
+                "No synthetic staff record found."
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "staffName"
+            )
+            .textContent =
+            staff.name;
+
+
+        document
+            .getElementById(
+                "staffReference"
+            )
+            .textContent =
+            `Staff ID: ${staff.id}`;
+
+
+        const status =
+            document.getElementById(
+                "staffStatus"
+            );
+
+
+        status.textContent =
+            staff.status;
+
+
+        status.className =
+            "status " +
+            (
+                staff.status ===
+                "Active"
+                    ? "active"
+                    : "terminated"
+            );
+
+
+        const fields = [
+
+            {
+                label:
+                    "Department",
+
+                value:
+                    staff.department
+
+            },
+
+            {
+                label:
+                    "Position",
+
+                value:
+                    staff.position
+
+            },
+
+            {
+                label:
+                    "Line Manager",
+
+                value:
+                    staff.manager
+
+            },
+
+            {
+                label:
+                    "Employment",
+
+                value:
+                    staff.employment
+
+            },
+
+            {
+                label:
+                    "Email",
+
+                value:
+                    staff.email
+
+            },
+
+            {
+                label:
+                    "MLHMS Role",
+
+                value:
+                    staff.role
+
+            },
+
+            {
+                label:
+                    "Active Directory Group",
+
+                value:
+                    staff.ad
+
+            },
+
+            {
+                label:
+                    "Last Permission Review",
+
+                value:
+                    staff.lastReview
+
+            },
+
+            {
+                label:
+                    "Review Status",
+
+                value:
+                    staff.review
+
+            }
+
+        ];
+
+
+        const grid =
+            document.getElementById(
+                "staffGrid"
+            );
+
+
+        grid.innerHTML =
+            "";
+
+
+        fields.forEach(
+            function(field){
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "field";
+
+
+                div.innerHTML = `
+
+                    <div class="field-label">
+
+                        ${escapeHtml(
+                            field.label
+                        )}
+
+                    </div>
+
+                    <div class="field-value">
+
+                        ${escapeHtml(
+                            field.value
+                        )}
+
+                    </div>
+
+                `;
+
+
+                grid.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+        result.classList.add(
+            "show"
+        );
+
+    }
+
+
+    function escapeHtml(
+        value
+    ){
+
+        return String(
+            value ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    function goDashboard(){
+
+        window.location.href =
+            "/routes/dashboard.html";
+
+    }
+
+
+    renderStaff();
+
+</script>
+
+
+</body>
+
+</html>
