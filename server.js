@@ -8,43 +8,19 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-/*
-|--------------------------------------------------------------------------
-| MLHMS LEGACY SERVER
-|--------------------------------------------------------------------------
-|
-| Fictional academic system for Meridian General Hospital.
-|
-| IMPORTANT:
-| This intentionally models poor legacy design decisions for comparison
-| against the future H.A.W.K.S. system.
-|
-| DO NOT use this architecture with real healthcare information.
-|
-|--------------------------------------------------------------------------
-*/
-
-
-/*
-|--------------------------------------------------------------------------
-| PATHS
-|--------------------------------------------------------------------------
-*/
-
 const ROOT_DIR = __dirname;
 
-const DATABASE_FILE = path.join(
-    ROOT_DIR,
-    "security",
-    "database.xlsx"
-);
+const SECURITY_DIR =
+    path.join(
+        ROOT_DIR,
+        "security"
+    );
 
-
-/*
-|--------------------------------------------------------------------------
-| REQUIRED LEGACY DATABASE HEADERS
-|--------------------------------------------------------------------------
-*/
+const DATABASE_FILE =
+    path.join(
+        SECURITY_DIR,
+        "database.xlsx"
+    );
 
 const DATABASE_HEADERS = [
     "First Name",
@@ -67,7 +43,7 @@ const DATABASE_HEADERS = [
 
 /*
 |--------------------------------------------------------------------------
-| EXPRESS CONFIGURATION
+| EXPRESS
 |--------------------------------------------------------------------------
 */
 
@@ -84,20 +60,7 @@ app.use(
 
 /*
 |--------------------------------------------------------------------------
-| LEGACY STATIC FILE HANDLING
-|--------------------------------------------------------------------------
-|
-| We intentionally serve the repository root directly.
-|
-| This allows the existing MLHMS structure to remain intact:
-|
-| /
-| ├── index.html
-| ├── routes/
-| ├── modules/
-| ├── api/
-| └── security/
-|
+| STATIC FILES
 |--------------------------------------------------------------------------
 */
 
@@ -113,7 +76,7 @@ app.use(
 
 /*
 |--------------------------------------------------------------------------
-| ROOT PAGE
+| ROOT
 |--------------------------------------------------------------------------
 */
 
@@ -140,24 +103,14 @@ app.get(
 
 function ensureDatabase() {
 
-    const databaseDirectory =
-        path.dirname(
-            DATABASE_FILE
-        );
-
-    /*
-     * Create /security if it doesn't
-     * already exist.
-     */
-
     if (
         !fs.existsSync(
-            databaseDirectory
+            SECURITY_DIR
         )
     ) {
 
         fs.mkdirSync(
-            databaseDirectory,
+            SECURITY_DIR,
             {
                 recursive: true
             }
@@ -165,11 +118,6 @@ function ensureDatabase() {
 
     }
 
-
-    /*
-     * If database.xlsx already exists,
-     * MLHMS keeps using it.
-     */
 
     if (
         fs.existsSync(
@@ -182,13 +130,9 @@ function ensureDatabase() {
     }
 
 
-    /*
-     * Otherwise create a basic
-     * legacy workbook.
-     */
-
     const workbook =
         XLSX.utils.book_new();
+
 
     const worksheet =
         XLSX.utils.aoa_to_sheet(
@@ -197,11 +141,13 @@ function ensureDatabase() {
             ]
         );
 
+
     XLSX.utils.book_append_sheet(
         workbook,
         worksheet,
         "Users"
     );
+
 
     XLSX.writeFile(
         workbook,
@@ -227,11 +173,6 @@ function readUsers() {
             DATABASE_FILE
         );
 
-
-    /*
-     * MLHMS expects a worksheet
-     * called "Users".
-     */
 
     const worksheet =
         workbook.Sheets.Users ||
@@ -275,24 +216,24 @@ function writeUsers(
     ];
 
 
-    for (
-        const user of users
-    ) {
+    users.forEach(
+        function (user) {
 
-        rows.push(
-            DATABASE_HEADERS.map(
-                function (header) {
+            rows.push(
+                DATABASE_HEADERS.map(
+                    function (header) {
 
-                    return (
-                        user[header] ??
-                        ""
-                    );
+                        return (
+                            user[header] ??
+                            ""
+                        );
 
-                }
-            )
-        );
+                    }
+                )
+            );
 
-    }
+        }
+    );
 
 
     const worksheet =
@@ -322,16 +263,11 @@ function writeUsers(
 
 /*
 |--------------------------------------------------------------------------
-| LEGACY PASSWORD FUNCTION
+| LEGACY PASSWORD HASH
 |--------------------------------------------------------------------------
 |
-| INTENTIONAL FLAW FOR THE CASE STUDY:
-|
-| The old system uses SHA-256 directly instead
-| of a modern password-hashing algorithm.
-|
-| H.A.W.K.S. will replace this completely.
-|
+| Intentionally obsolete for the MLHMS academic case study.
+| H.A.W.K.S. will replace this with a modern password hashing design.
 |--------------------------------------------------------------------------
 */
 
@@ -357,11 +293,6 @@ function legacyPasswordHash(
 /*
 |--------------------------------------------------------------------------
 | PASSWORD STRENGTH
-|--------------------------------------------------------------------------
-|
-| The system records a password-strength
-| label in the Excel workbook.
-|
 |--------------------------------------------------------------------------
 */
 
@@ -430,11 +361,6 @@ function calculatePasswordStrength(
 |--------------------------------------------------------------------------
 | SYSTEM STATUS
 |--------------------------------------------------------------------------
-|
-| The login page uses this endpoint to determine whether
-| the "Create First Local Account" button should be shown.
-|
-|--------------------------------------------------------------------------
 */
 
 app.get(
@@ -449,7 +375,6 @@ app.get(
 
             res.json(
                 {
-
                     system:
                         "Meridian Legacy Healthcare Management System",
 
@@ -487,14 +412,15 @@ app.get(
                 error
             );
 
-            res.status(
-                500
-            ).json(
-                {
-                    error:
-                        "Unable to read MLHMS system status."
-                }
-            );
+
+            res
+                .status(500)
+                .json(
+                    {
+                        error:
+                            "Unable to read MLHMS system status."
+                    }
+                );
 
         }
 
@@ -504,15 +430,7 @@ app.get(
 
 /*
 |--------------------------------------------------------------------------
-| SIGN UP
-|--------------------------------------------------------------------------
-|
-| INTENTIONAL LEGACY BEHAVIOR:
-|
-| MLHMS only allows the first local account to be created.
-|
-| After that, registration disappears.
-|
+| SIGNUP
 |--------------------------------------------------------------------------
 */
 
@@ -525,11 +443,6 @@ app.post(
             const users =
                 readUsers();
 
-
-            /*
-             * The legacy system only
-             * supports its first local account.
-             */
 
             if (
                 users.length > 0
@@ -558,10 +471,6 @@ app.post(
             } = req.body;
 
 
-            /*
-             * Basic input checks.
-             */
-
             if (
                 !firstName ||
                 !lastName ||
@@ -581,10 +490,6 @@ app.post(
             }
 
 
-            /*
-             * Username restriction.
-             */
-
             if (
                 !/^[A-Za-z0-9._-]{3,32}$/
                     .test(
@@ -603,10 +508,6 @@ app.post(
 
             }
 
-
-            /*
-             * Legacy password requirement.
-             */
 
             if (
                 password.length < 8
@@ -640,10 +541,6 @@ app.post(
             );
 
 
-            /*
-             * Create the legacy account.
-             */
-
             const newUser = {
 
                 "First Name":
@@ -661,10 +558,6 @@ app.post(
                 "Username":
                     username,
 
-                /*
-                 * Intentionally weak representation.
-                 * Academic demonstration only.
-                 */
                 "Password":
                     "LEGACY-SHA256:" +
                     legacyPasswordHash(
@@ -716,11 +609,6 @@ app.post(
             };
 
 
-            /*
-             * Write the user into
-             * the Excel database.
-             */
-
             writeUsers(
                 [
                     newUser
@@ -732,13 +620,11 @@ app.post(
                 .status(201)
                 .json(
                     {
-
                         message:
                             "Legacy account created successfully.",
 
                         signupAvailable:
                             false
-
                     }
                 );
 
@@ -749,6 +635,7 @@ app.post(
                 "Signup error:",
                 error
             );
+
 
             res
                 .status(500)
@@ -787,10 +674,6 @@ app.post(
             } = req.body;
 
 
-            /*
-             * Find account.
-             */
-
             const user =
                 users.find(
                     function (entry) {
@@ -822,10 +705,6 @@ app.post(
             }
 
 
-            /*
-             * Legacy password comparison.
-             */
-
             const expectedPassword =
                 "LEGACY-SHA256:" +
                 legacyPasswordHash(
@@ -853,11 +732,8 @@ app.post(
 
 
             /*
-             * Intentionally simplistic login response.
-             *
-             * A proper system would use robust,
-             * expiring server-side sessions or
-             * properly managed secure tokens.
+             * Deliberately simplistic legacy
+             * session token.
              */
 
             const token =
@@ -905,6 +781,7 @@ app.post(
                 error
             );
 
+
             res
                 .status(500)
                 .json(
@@ -923,17 +800,6 @@ app.post(
 /*
 |--------------------------------------------------------------------------
 | LEGACY USER ENDPOINT
-|--------------------------------------------------------------------------
-|
-| INTENTIONAL CASE-STUDY WEAKNESS:
-|
-| This endpoint does not enforce a proper administrator
-| authorization check.
-|
-| It demonstrates how a badly managed extension/API
-| can expose information outside the intended security
-| boundary.
-|
 |--------------------------------------------------------------------------
 */
 
@@ -998,12 +864,434 @@ app.get(
                 error
             );
 
+
             res
                 .status(500)
                 .json(
                     {
                         error:
                             "Unable to retrieve users."
+                    }
+                );
+
+        }
+
+    }
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| DATABASE:
+| LIST EXCEL WORKBOOKS
+|--------------------------------------------------------------------------
+|
+| Searches /security for .xlsx and .xls files.
+|--------------------------------------------------------------------------
+*/
+
+app.get(
+    "/api/database/workbooks",
+    function (req, res) {
+
+        try {
+
+            ensureDatabase();
+
+
+            const files =
+                fs.readdirSync(
+                    SECURITY_DIR
+                );
+
+
+            const workbooks =
+                files
+                    .filter(
+                        function (file) {
+
+                            return (
+                                file
+                                    .toLowerCase()
+                                    .endsWith(".xlsx") ||
+                                file
+                                    .toLowerCase()
+                                    .endsWith(".xls")
+                            );
+
+                        }
+                    )
+                    .map(
+                        function (file) {
+
+                            const fullPath =
+                                path.join(
+                                    SECURITY_DIR,
+                                    file
+                                );
+
+
+                            const workbook =
+                                XLSX.readFile(
+                                    fullPath,
+                                    {
+                                        bookSheets:
+                                            true
+                                    }
+                                );
+
+
+                            return {
+
+                                file,
+
+                                path:
+                                    `/security/${file}`,
+
+                                size:
+                                    fs.statSync(
+                                        fullPath
+                                    ).size,
+
+                                sheets:
+                                    workbook.SheetNames
+
+                            };
+
+                        }
+                    );
+
+
+            res.json(
+                {
+
+                    system:
+                        "MLHMS Legacy Database Browser",
+
+                    location:
+                        "/security/",
+
+                    workbooks
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Workbook enumeration error:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json(
+                    {
+                        error:
+                            "Unable to enumerate legacy workbooks."
+                    }
+                );
+
+        }
+
+    }
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| DATABASE:
+| WORKBOOK METADATA
+|--------------------------------------------------------------------------
+*/
+
+app.get(
+    "/api/database/workbook/:file",
+    function (req, res) {
+
+        try {
+
+            const file =
+                path.basename(
+                    req.params.file
+                );
+
+
+            if (
+                !(
+                    file
+                        .toLowerCase()
+                        .endsWith(".xlsx") ||
+                    file
+                        .toLowerCase()
+                        .endsWith(".xls")
+                )
+            ) {
+
+                return res
+                    .status(400)
+                    .json(
+                        {
+                            error:
+                                "Only Excel workbooks are supported."
+                        }
+                    );
+
+            }
+
+
+            const workbookPath =
+                path.join(
+                    SECURITY_DIR,
+                    file
+                );
+
+
+            if (
+                !fs.existsSync(
+                    workbookPath
+                )
+            ) {
+
+                return res
+                    .status(404)
+                    .json(
+                        {
+                            error:
+                                "Workbook not found."
+                        }
+                    );
+
+            }
+
+
+            const workbook =
+                XLSX.readFile(
+                    workbookPath,
+                    {
+                        bookSheets:
+                            true
+                    }
+                );
+
+
+            res.json(
+                {
+
+                    file,
+
+                    size:
+                        fs.statSync(
+                            workbookPath
+                        ).size,
+
+                    sheets:
+                        workbook.SheetNames
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Workbook metadata error:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json(
+                    {
+                        error:
+                            "Unable to read workbook metadata."
+                    }
+                );
+
+        }
+
+    }
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| DATABASE:
+| READ WORKSHEET
+|--------------------------------------------------------------------------
+|
+| Returns the worksheet as JSON.
+|
+| Password fields are masked before leaving the server.
+|--------------------------------------------------------------------------
+*/
+
+app.get(
+    "/api/database/workbook/:file/sheet/:sheet",
+    function (req, res) {
+
+        try {
+
+            const file =
+                path.basename(
+                    req.params.file
+                );
+
+
+            const sheet =
+                req.params.sheet;
+
+
+            const workbookPath =
+                path.join(
+                    SECURITY_DIR,
+                    file
+                );
+
+
+            if (
+                !fs.existsSync(
+                    workbookPath
+                )
+            ) {
+
+                return res
+                    .status(404)
+                    .json(
+                        {
+                            error:
+                                "Workbook not found."
+                        }
+                    );
+
+            }
+
+
+            const workbook =
+                XLSX.readFile(
+                    workbookPath
+                );
+
+
+            if (
+                !workbook.Sheets[sheet]
+            ) {
+
+                return res
+                    .status(404)
+                    .json(
+                        {
+                            error:
+                                "Worksheet not found."
+                        }
+                    );
+
+            }
+
+
+            const rows =
+                XLSX.utils.sheet_to_json(
+                    workbook.Sheets[sheet],
+                    {
+                        defval: ""
+                    }
+                );
+
+
+            /*
+             * Mask sensitive fields.
+             *
+             * The legacy workbook can contain the
+             * fictional Password field, but the browser
+             * doesn't need to receive it.
+             */
+
+            const safeRows =
+                rows.map(
+                    function (row) {
+
+                        const copy =
+                            {
+                                ...row
+                            };
+
+
+                        Object.keys(
+                            copy
+                        ).forEach(
+                            function (key) {
+
+                                const normalized =
+                                    key
+                                        .toLowerCase()
+                                        .replace(
+                                            /[\s_-]/g,
+                                            ""
+                                        );
+
+
+                                if (
+                                    normalized ===
+                                        "password" ||
+                                    normalized ===
+                                        "passwordhash" ||
+                                    normalized.includes(
+                                        "apikey"
+                                    ) ||
+                                    normalized.includes(
+                                        "secret"
+                                    )
+                                ) {
+
+                                    copy[key] =
+                                        "[MASKED LEGACY VALUE]";
+
+                                }
+
+                            }
+                        );
+
+
+                        return copy;
+
+                    }
+                );
+
+
+            res.json(
+                {
+
+                    file,
+
+                    sheet,
+
+                    rowCount:
+                        safeRows.length,
+
+                    rows:
+                        safeRows
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Worksheet read error:",
+                error
+            );
+
+
+            res
+                .status(500)
+                .json(
+                    {
+                        error:
+                            "Unable to read worksheet."
                     }
                 );
 
@@ -1025,6 +1313,7 @@ app.get(
 
         res.json(
             {
+
                 status:
                     "online",
 
@@ -1063,6 +1352,7 @@ app.use(
             error
         );
 
+
         res
             .status(500)
             .json(
@@ -1094,11 +1384,11 @@ app.listen(
         );
 
         console.log(
-            " Meridian General Hospital"
+            "Meridian General Hospital"
         );
 
         console.log(
-            " MLHMS Legacy Management System"
+            "MLHMS Legacy Management System"
         );
 
         console.log(
@@ -1106,7 +1396,7 @@ app.listen(
         );
 
         console.log(
-            `Server: http://localhost:${PORT}`
+            `Server running on port ${PORT}`
         );
 
         console.log(
@@ -1114,7 +1404,7 @@ app.listen(
         );
 
         console.log(
-            "WARNING: Fictional academic demonstration."
+            "Fictional academic demonstration."
         );
 
         console.log(
