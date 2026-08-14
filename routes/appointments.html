@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MLHMS | Appointments</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --navy:#101b24;
+    --navy2:#172631;
+    --navy3:#243944;
+    --background:#eef2f5;
+    --white:#ffffff;
+    --text:#1f2d36;
+    --muted:#687780;
+    --blue:#1976d2;
+    --green:#2e7d32;
+    --orange:#ef6c00;
+    --red:#c62828;
+    --border:#d7e0e6;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(180deg,#edf1f4,#f8fafc);
+    color:var(--text);
+    font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+header{
+    height:68px;
+    padding:0 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff;
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    box-shadow:0 2px 8px rgba(0,0,0,.16);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand-logo{
+    width:40px;
+    height:40px;
+    display:grid;
+    place-items:center;
+    border-radius:10px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    font-weight:800;
+}
+
+.brand-title{
+    font-size:15px;
+    font-weight:700;
+}
+
+.brand-subtitle{
+    margin-top:2px;
+    color:#afbec8;
+    font-size:10px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.legacy-badge{
+    padding:6px 9px;
+    border-radius:999px;
+    background:#fff3e0;
+    color:#e65100;
+    font-size:10px;
+    font-weight:800;
+}
+
+.back-button{
+    padding:8px 11px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:7px;
+    background:rgba(255,255,255,.05);
+    color:#fff;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.layout{
+    min-height:calc(100vh - 68px);
+    display:flex;
+}
+
+aside{
+    width:235px;
+    flex-shrink:0;
+    padding:18px 0;
+    background:var(--navy);
+    color:#fff;
+}
+
+.sidebar-heading{
+    padding:10px 18px 8px;
+    color:#90a4ae;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+.side-item{
+    width:100%;
+    padding:11px 18px;
+    border:none;
+    background:transparent;
+    color:#dce4e9;
+    text-align:left;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.side-item:hover,
+.side-item.active{
+    background:var(--navy3);
+    color:#fff;
+}
+
+main{
+    flex:1;
+    min-width:0;
+    padding:24px;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.page-header h1{
+    font-size:25px;
+}
+
+.page-header p{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.system-label{
+    padding:9px 11px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.warning{
+    padding:14px 16px;
+    margin-bottom:17px;
+    border-left:4px solid var(--orange);
+    background:#fff8e8;
+    border-top:1px solid #ffe3ab;
+    border-right:1px solid #ffe3ab;
+    border-bottom:1px solid #ffe3ab;
+    border-radius:0 8px 8px 0;
+}
+
+.warning strong{
+    display:block;
+    margin-bottom:5px;
+    color:#965400;
+    font-size:12px;
+}
+
+.warning p{
+    color:#795a2e;
+    font-size:11px;
+    line-height:1.55;
+}
+
+.card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:9px;
+    box-shadow:0 2px 5px rgba(0,0,0,.035);
+}
+
+.card-header{
+    padding:15px 16px;
+    border-bottom:1px solid #edf1f4;
+}
+
+.card-header h2{
+    font-size:13px;
+}
+
+.card-header p{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+.booking-card{
+    padding:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:13px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:6px;
+    color:#5b6d78;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #cbd5dc;
+    border-radius:8px;
+    outline:none;
+    font-family:inherit;
+    font-size:11px;
+    background:#fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(25,118,210,.08);
+}
+
+.form-group textarea{
+    min-height:85px;
+    resize:vertical;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.button-row{
+    display:flex;
+    gap:9px;
+    margin-top:15px;
+}
+
+.button{
+    padding:11px 15px;
+    border:none;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.primary{
+    background:var(--blue);
+    color:#fff;
+}
+
+.secondary{
+    background:#eef3f7;
+    color:#42545f;
+    border:1px solid #d4dee5;
+}
+
+.success-message{
+    display:none;
+    margin-top:13px;
+    padding:10px 12px;
+    border-radius:7px;
+    background:#e8f5e9;
+    color:#2e7d32;
+    font-size:10px;
+}
+
+.success-message.show{
+    display:block;
+}
+
+.error-message{
+    display:none;
+    margin-top:13px;
+    padding:10px 12px;
+    border-radius:7px;
+    background:#ffebee;
+    color:#b71c1c;
+    font-size:10px;
+}
+
+.error-message.show{
+    display:block;
+}
+
+.list-card{
+    margin-top:15px;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:950px;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #edf1f4;
+    text-align:left;
+    font-size:10px;
+}
+
+th{
+    background:#f6f8fa;
+    color:#71808a;
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+td{
+    color:#374853;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 7px;
+    border-radius:999px;
+    font-size:9px;
+    font-weight:800;
+}
+
+.badge.green{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+.badge.orange{
+    background:#fff3e0;
+    color:#e65100;
+}
+
+.badge.red{
+    background:#ffebee;
+    color:#b71c1c;
+}
+
+.badge.blue{
+    background:#e3f2fd;
+    color:#1565c0;
+}
+
+.info-grid{
+    margin-top:15px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.info-card{
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    background:#fff;
+}
+
+.info-card strong{
+    display:block;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.info-card span{
+    color:var(--muted);
+    font-size:9px;
+    line-height:1.5;
+}
+
+footer{
+    margin-top:18px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+    color:#8a96a0;
+    font-size:9px;
+    text-align:center;
+}
+
+@media(max-width:1000px){
+    .form-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:760px){
+    aside{
+        display:none;
+    }
+
+    main{
+        padding:15px;
+    }
+}
+
+@media(max-width:550px){
+    .form-grid,
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Appointment Scheduling
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY SCHEDULER
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+            ← Dashboard
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+<aside>
+
+    <div class="sidebar-heading">
+        Clinical
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/patient.html'">
+        Patient Records
+    </button>
+
+    <button
+        class="side-item active">
+        Appointments
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/lab.html'">
+        Laboratory
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/billing.html'">
+        Billing
+    </button>
+
+    <div class="sidebar-heading">
+        Administration
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/hr.html'">
+        Human Resources
+    </button>
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/staff.html'">
+        Staff Management
+    </button>
+
+    <div class="sidebar-heading">
+        Security
+    </div>
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+        Access Management
+    </button>
+
+</aside>
+
+
+<main>
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Appointment Scheduling
+            </h1>
+
+            <p>
+                Meridian General Hospital — Legacy Scheduling Module
+            </p>
+
+        </div>
+
+        <div class="system-label">
+            Scheduler v2.8
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            LEGACY SCHEDULING WARNING
+        </strong>
+
+        <p>
+
+            The appointment scheduler was developed independently
+            from the original patient module and uses its own
+            validation and scheduling logic. Synchronization with
+            patient records is incomplete. All information shown
+            is synthetic.
+
+        </p>
+
+    </div>
+
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                Book Appointment
+            </h2>
+
+            <p>
+                Create a new synthetic appointment.
+            </p>
+
+        </div>
+
+
+        <div class="booking-card">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Patient ID
+                    </label>
+
+                    <input
+                        id="patientId"
+                        value="MGH-1001"
+                        placeholder="MGH-1001">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Appointment Date
+                    </label>
+
+                    <input
+                        id="appointmentDate"
+                        type="date">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Appointment Time
+                    </label>
+
+                    <input
+                        id="appointmentTime"
+                        type="time"
+                        value="09:00">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Department
+                    </label>
+
+                    <select id="department">
+
+                        <option>
+                            General Medicine
+                        </option>
+
+                        <option>
+                            Cardiology
+                        </option>
+
+                        <option>
+                            Orthopaedics
+                        </option>
+
+                        <option>
+                            Laboratory
+                        </option>
+
+                        <option>
+                            Radiology
+                        </option>
+
+                        <option>
+                            Pharmacy
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Clinician
+                    </label>
+
+                    <select id="clinician">
+
+                        <option>
+                            Dr. Adams
+                        </option>
+
+                        <option>
+                            Dr. Green
+                        </option>
+
+                        <option>
+                            Dr. Patel
+                        </option>
+
+                        <option>
+                            Dr. Morgan
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Appointment Type
+                    </label>
+
+                    <select id="appointmentType">
+
+                        <option>
+                            Consultation
+                        </option>
+
+                        <option>
+                            Follow-up
+                        </option>
+
+                        <option>
+                            Laboratory
+                        </option>
+
+                        <option>
+                            Imaging
+                        </option>
+
+                        <option>
+                            Medication Review
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Legacy appointment notes"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="button primary"
+                    onclick="createAppointment()">
+
+                    Create Appointment
+
+                </button>
+
+                <button
+                    class="button secondary"
+                    onclick="resetForm()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="successMessage"
+                class="success-message">
+            </div>
+
+
+            <div
+                id="errorMessage"
+                class="error-message">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card list-card">
+
+        <div class="card-header">
+
+            <h2>
+                Upcoming Appointments
+            </h2>
+
+            <p>
+                Synthetic records currently maintained by the legacy scheduler
+            </p>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Appointment ID
+                        </th>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Clinician
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Created By
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="appointmentTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <strong>
+                Duplicate Booking Risk
+            </strong>
+
+            <span>
+                The legacy scheduler does not consistently check
+                for overlapping appointments across departments.
+            </span>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <strong>
+                Patient Synchronization
+            </strong>
+
+            <span>
+                Appointment records use patient identifiers but
+                are maintained independently from the patient module.
+            </span>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <strong>
+                Change Tracking
+            </strong>
+
+            <span>
+                Historical changes do not always capture the previous
+                value, reason for change or full user context.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+</main>
+
+</div>
+
+
+<script>
+
+const appointments = [
+
+    {
+        id:"APT-001",
+        patient:"MGH-1001",
+        date:"2026-08-20",
+        time:"09:00",
+        department:"General Medicine",
+        clinician:"Dr. Adams",
+        type:"Consultation",
+        status:"Confirmed",
+        createdBy:"reception01"
+    },
+
+    {
+        id:"APT-002",
+        patient:"MGH-1002",
+        date:"2026-08-21",
+        time:"10:30",
+        department:"Cardiology",
+        clinician:"Dr. Green",
+        type:"Follow-up",
+        status:"Pending",
+        createdBy:"reception01"
+    },
+
+    {
+        id:"APT-003",
+        patient:"MGH-1003",
+        date:"2026-08-22",
+        time:"14:00",
+        department:"Orthopaedics",
+        clinician:"Dr. Patel",
+        type:"Consultation",
+        status:"Confirmed",
+        createdBy:"staff01"
+    },
+
+    {
+        id:"APT-004",
+        patient:"MGH-1004",
+        date:"2026-08-23",
+        time:"11:15",
+        department:"Laboratory",
+        clinician:"Dr. Adams",
+        type:"Laboratory",
+        status:"Pending",
+        createdBy:"lab03"
+    }
+
+];
+
+
+function renderAppointments(){
+
+    const table =
+        document.getElementById(
+            "appointmentTable"
+        );
+
+    table.innerHTML = "";
+
+    appointments.forEach(
+        function(a){
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+            const statusClass =
+                a.status === "Confirmed"
+                    ? "green"
+                    : "orange";
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(a.id)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.patient)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.date)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.time)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.department)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.clinician)}
+                </td>
+
+                <td>
+                    ${escapeHtml(a.type)}
+                </td>
+
+                <td>
+
+                    <span
+                        class="badge ${statusClass}">
+
+                        ${escapeHtml(a.status)}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ${escapeHtml(a.createdBy)}
+                </td>
+
+            `;
+
+            table.appendChild(row);
+
+        }
+    );
+
+}
+
+
+function createAppointment(){
+
+    const patientId =
+        document.getElementById(
+            "patientId"
+        ).value.trim();
+
+    const date =
+        document.getElementById(
+            "appointmentDate"
+        ).value;
+
+    const time =
+        document.getElementById(
+            "appointmentTime"
+        ).value;
+
+    const department =
+        document.getElementById(
+            "department"
+        ).value;
+
+    const clinician =
+        document.getElementById(
+            "clinician"
+        ).value;
+
+    const type =
+        document.getElementById(
+            "appointmentType"
+        ).value;
+
+
+    clearMessages();
+
+
+    if(!patientId || !date || !time){
+
+        showError(
+            "Patient ID, appointment date and appointment time are required."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * INTENTIONAL LEGACY DESIGN:
+     *
+     * The system performs only basic front-end validation.
+     * It does not actually query a centralized patient
+     * database or perform a robust conflict check.
+     */
+
+    const appointment = {
+
+        id:
+            `APT-${String(
+                appointments.length + 1
+            ).padStart(
+                3,
+                "0"
+            )}`,
+
+        patient:
+            patientId,
+
+        date:
+            date,
+
+        time:
+            time,
+
+        department:
+            department,
+
+        clinician:
+            clinician,
+
+        type:
+            type,
+
+        status:
+            "Pending",
+
+        createdBy:
+            getCurrentUser()
+
+    };
+
+
+    appointments.push(
+        appointment
+    );
+
+
+    renderAppointments();
+
+
+    showSuccess(
+        `Appointment ${appointment.id} created successfully.`
+    );
+
+
+    clearBookingFields();
+
+}
+
+
+function clearBookingFields(){
+
+    document.getElementById(
+        "patientId"
+    ).value = "";
+
+    document.getElementById(
+        "appointmentDate"
+    ).value = "";
+
+    document.getElementById(
+        "appointmentTime"
+    ).value = "09:00";
+
+    document.getElementById(
+        "notes"
+    ).value = "";
+
+}
+
+
+function resetForm(){
+
+    document.getElementById(
+        "patientId"
+    ).value =
+        "MGH-1001";
+
+    document.getElementById(
+        "appointmentDate"
+    ).value =
+        "";
+
+    document.getElementById(
+        "appointmentTime"
+    ).value =
+        "09:00";
+
+    document.getElementById(
+        "department"
+    ).value =
+        "General Medicine";
+
+    document.getElementById(
+        "clinician"
+    ).value =
+        "Dr. Adams";
+
+    document.getElementById(
+        "appointmentType"
+    ).value =
+        "Consultation";
+
+    document.getElementById(
+        "notes"
+    ).value =
+        "";
+
+    clearMessages();
+
+}
+
+
+function showSuccess(message){
+
+    const element =
+        document.getElementById(
+            "successMessage"
+        );
+
+    element.textContent =
+        message;
+
+    element.classList.add(
+        "show"
+    );
+
+}
+
+
+function showError(message){
+
+    const element =
+        document.getElementById(
+            "errorMessage"
+        );
+
+    element.textContent =
+        message;
+
+    element.classList.add(
+        "show"
+    );
+
+}
+
+
+function clearMessages(){
+
+    document
+        .getElementById(
+            "successMessage"
+        )
+        .classList
+        .remove(
+            "show"
+        );
+
+    document
+        .getElementById(
+            "errorMessage"
+        )
+        .classList
+        .remove(
+            "show"
+        );
+
+}
+
+
+function getCurrentUser(){
+
+    try{
+
+        const user =
+            JSON.parse(
+                sessionStorage.getItem(
+                    "mlhmsUser"
+                ) || "null"
+            );
+
+        return (
+            user?.username ||
+            "legacy-user"
+        );
+
+    }catch{
+
+        return "legacy-user";
+
+    }
+
+}
+
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+function goDashboard(){
+
+    window.location.href =
+        "/routes/dashboard.html";
+
+}
+
+
+renderAppointments();
+
+</script>
+
+</body>
+
+</html>
