@@ -1,1 +1,2446 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Human Resources
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --navy: #101b24;
+            --navy2: #172631;
+            --navy3: #243944;
+
+            --background: #eef2f5;
+            --white: #ffffff;
+
+            --text: #1f2d36;
+            --muted: #687780;
+
+            --blue: #1976d2;
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+            --purple: #6a1b9a;
+
+            --border: #d7e0e6;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafc
+                );
+
+            color:
+                var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+
+            height: 68px;
+
+            padding: 0 22px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .16
+                );
+
+        }
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+        .brand-logo {
+
+            width: 40px;
+
+            height: 40px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+
+            font-weight: 800;
+
+        }
+
+        .brand-title {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+        }
+
+        .brand-subtitle {
+
+            margin-top: 2px;
+
+            color: #afbec8;
+
+            font-size: 10px;
+
+        }
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+        .legacy-badge {
+
+            padding: 6px 9px;
+
+            border-radius: 999px;
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+        .back-button {
+
+            padding: 8px 11px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            border-radius: 7px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+
+            color: white;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+        }
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+
+            min-height:
+                calc(
+                    100vh - 68px
+                );
+
+            display: flex;
+
+        }
+
+        aside {
+
+            width: 235px;
+
+            flex-shrink: 0;
+
+            padding: 18px 0;
+
+            background: var(--navy);
+
+            color: white;
+
+        }
+
+        .sidebar-heading {
+
+            padding:
+                10px 18px 8px;
+
+            color: #90a4ae;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+        }
+
+        .side-item {
+
+            width: 100%;
+
+            padding:
+                11px 18px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #dce4e9;
+
+            text-align: left;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+        }
+
+        .side-item:hover,
+        .side-item.active {
+
+            background:
+                var(--navy3);
+
+            color: white;
+
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 24px;
+
+        }
+
+        .page-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            margin-bottom: 20px;
+
+        }
+
+        .page-header h1 {
+
+            font-size: 25px;
+
+        }
+
+        .page-header p {
+
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+        }
+
+        .system-label {
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 8px;
+
+            background: white;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+
+            padding:
+                14px 16px;
+
+            margin-bottom:
+                17px;
+
+            border-left:
+                4px solid
+                var(--red);
+
+            background:
+                #fff1f1;
+
+            border-top:
+                1px solid
+                #ffd0d0;
+
+            border-right:
+                1px solid
+                #ffd0d0;
+
+            border-bottom:
+                1px solid
+                #ffd0d0;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+        .warning strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #9f1d1d;
+
+            font-size: 12px;
+
+        }
+
+        .warning p {
+
+            color: #7b3030;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+
+        }
+
+        /* =========================================================
+           STATISTICS
+        ========================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .stat {
+
+            padding: 16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            background: white;
+
+        }
+
+        .stat-label {
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        .stat-value {
+
+            margin-top: 8px;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+        }
+
+        .green {
+
+            color: var(--green);
+
+        }
+
+        .orange {
+
+            color: var(--orange);
+
+        }
+
+        .red {
+
+            color: var(--red);
+
+        }
+
+        /* =========================================================
+           CARD
+        ========================================================== */
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .035
+                );
+
+        }
+
+        .card-header {
+
+            padding:
+                15px 16px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .card-header h2 {
+
+            font-size: 13px;
+
+        }
+
+        .card-header p {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        /* =========================================================
+           EMPLOYEE SEARCH
+        ========================================================== */
+
+        .search-body {
+
+            padding: 17px;
+
+        }
+
+        .search-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                auto;
+
+            gap: 9px;
+
+        }
+
+        .search-row input {
+
+            width: 100%;
+
+            padding:
+                12px 13px;
+
+            border:
+                1px solid
+                #cbd5dc;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 11px;
+
+        }
+
+        .search-row input:focus {
+
+            border-color: var(--blue);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    25,
+                    118,
+                    210,
+                    .08
+                );
+
+        }
+
+        .button {
+
+            padding:
+                11px 15px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+        }
+
+        .primary {
+
+            background: var(--blue);
+
+            color: white;
+
+        }
+
+        .secondary {
+
+            background: #eef3f7;
+
+            color: #42545f;
+
+            border:
+                1px solid
+                #d4dee5;
+
+        }
+
+        /* =========================================================
+           EMPLOYEE RESULT
+        ========================================================== */
+
+        .employee {
+
+            display: none;
+
+            margin-top: 15px;
+
+        }
+
+        .employee.show {
+
+            display: block;
+
+        }
+
+        .employee-head {
+
+            padding: 17px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .employee-name {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+        }
+
+        .employee-id {
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        .status {
+
+            padding:
+                5px 8px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+        .status.active {
+
+            background:
+                #e8f5e9;
+
+            color:
+                #2e7d32;
+
+        }
+
+        .status.terminated {
+
+            background:
+                #ffebee;
+
+            color:
+                #b71c1c;
+
+        }
+
+        .employee-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+        }
+
+        .field {
+
+            padding: 14px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            border-right:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .field:nth-child(3n) {
+
+            border-right: none;
+
+        }
+
+        .field-label {
+
+            margin-bottom: 5px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        .field-value {
+
+            color: #324651;
+
+            font-size: 11px;
+
+        }
+
+        /* =========================================================
+           EMPLOYEE REGISTER
+        ========================================================== */
+
+        .register {
+
+            margin-top: 15px;
+
+        }
+
+        .table-wrap {
+
+            overflow: auto;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            min-width: 1000px;
+
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+
+            padding: 10px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            text-align: left;
+
+            font-size: 10px;
+
+        }
+
+        th {
+
+            background: #f6f8fa;
+
+            color: #71808a;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+        td {
+
+            color: #374853;
+
+        }
+
+        .badge {
+
+            display: inline-block;
+
+            padding:
+                4px 7px;
+
+            border-radius:
+                999px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+        }
+
+        .badge.green {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+        }
+
+        .badge.orange {
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+        }
+
+        .badge.red {
+
+            background: #ffebee;
+
+            color: #b71c1c;
+
+        }
+
+        .badge.blue {
+
+            background: #e3f2fd;
+
+            color: #1565c0;
+
+        }
+
+        .badge.purple {
+
+            background: #f3e5f5;
+
+            color: #6a1b9a;
+
+        }
+
+        /* =========================================================
+           LIFECYCLE
+        ========================================================== */
+
+        .lifecycle {
+
+            margin-top: 15px;
+
+            padding: 16px;
+
+        }
+
+        .timeline {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    5,
+                    1fr
+                );
+
+            gap: 10px;
+
+            margin-top: 13px;
+
+        }
+
+        .timeline-step {
+
+            padding: 13px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 8px;
+
+            background: #fbfcfd;
+
+            position: relative;
+
+        }
+
+        .timeline-step strong {
+
+            display: block;
+
+            font-size: 10px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .timeline-step span {
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+
+        }
+
+        /* =========================================================
+           ISSUES
+        ========================================================== */
+
+        .issues {
+
+            margin-top: 15px;
+
+        }
+
+        .issues-body {
+
+            padding: 15px;
+
+        }
+
+        .issue {
+
+            display: flex;
+
+            gap: 9px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .issue:last-child {
+
+            border-bottom: none;
+
+        }
+
+        .issue-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            margin-top: 4px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+        }
+
+        .issue strong {
+
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 10px;
+
+        }
+
+        .issue span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top: 18px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            color: #8a96a0;
+
+            font-size: 9px;
+
+            text-align: center;
+
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media(max-width:1000px){
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+            .timeline {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+            .employee-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+            .field:nth-child(3n) {
+
+                border-right:
+                    1px solid
+                    #edf1f4;
+
+            }
+
+            .field:nth-child(2n) {
+
+                border-right: none;
+
+            }
+
+        }
+
+        @media(max-width:760px){
+
+            aside {
+
+                display: none;
+
+            }
+
+            main {
+
+                padding: 15px;
+
+            }
+
+        }
+
+        @media(max-width:550px){
+
+            .stats,
+            .timeline,
+            .employee-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .field {
+
+                border-right:none !important;
+
+            }
+
+            .search-row {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .page-header {
+
+                flex-direction: column;
+
+                gap: 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Human Resources Management
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY HR MODULE
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside>
+
+    <div class="sidebar-heading">
+        Administration
+    </div>
+
+
+    <button
+        class="side-item active">
+
+        Human Resources
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/staff.html'">
+
+        Staff Management
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/active_directory.html'">
+
+        Active Directory
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Clinical
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/patient.html'">
+
+        Patient Records
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/lab.html'">
+
+        Laboratory
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/billing.html'">
+
+        Billing
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Security
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/login-log.html'">
+
+        Login Logs
+
+    </button>
+
+</aside>
+
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Human Resources
+            </h1>
+
+            <p>
+                Meridian General Hospital — Employee Administration
+            </p>
+
+        </div>
+
+        <div class="system-label">
+            HR Module v2.4
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            EMPLOYEE LIFECYCLE WARNING
+        </strong>
+
+        <p>
+
+            HR is the authoritative department for employee
+            lifecycle events, but the legacy MLHMS environment
+            does not reliably synchronize employee status with
+            Active Directory, local application accounts and
+            departmental extensions.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATISTICS
+    ========================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Employees
+            </div>
+
+            <div
+                id="employeeCount"
+                class="stat-value">
+                386
+            </div>
+
+            <div style="
+                margin-top:4px;
+                color:#8a969e;
+                font-size:9px;
+            ">
+                Staff records
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Active
+            </div>
+
+            <div
+                id="activeCount"
+                class="stat-value green">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Terminations Pending
+            </div>
+
+            <div
+                class="stat-value orange">
+                7
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Identity Sync
+            </div>
+
+            <div
+                class="stat-value red">
+                61%
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         EMPLOYEE SEARCH
+    ========================================================== -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                Employee Search
+            </h2>
+
+            <p>
+                Search the legacy HR employee register.
+            </p>
+
+        </div>
+
+
+        <div class="search-body">
+
+            <div class="search-row">
+
+                <input
+                    id="employeeId"
+                    value="EMP-0001"
+                    placeholder="e.g. EMP-0001">
+
+
+                <button
+                    class="button primary"
+                    onclick="searchEmployee()">
+
+                    Search Employee
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         EMPLOYEE RESULT
+    ========================================================== -->
+
+    <section
+        id="employee"
+        class="card employee">
+
+
+        <div class="employee-head">
+
+            <div>
+
+                <div
+                    id="employeeName"
+                    class="employee-name">
+                </div>
+
+                <div
+                    id="employeeReference"
+                    class="employee-id">
+                </div>
+
+            </div>
+
+
+            <span
+                id="employeeStatus"
+                class="status">
+            </span>
+
+        </div>
+
+
+        <div
+            id="employeeGrid"
+            class="employee-grid">
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         EMPLOYEE REGISTER
+    ========================================================== -->
+
+    <section class="card register">
+
+        <div class="card-header">
+
+            <h2>
+                Employee Register
+            </h2>
+
+            <p>
+                Synthetic HR records used by the legacy environment.
+            </p>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Employee ID
+                        </th>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Department
+                        </th>
+
+                        <th>
+                            Manager
+                        </th>
+
+                        <th>
+                            Start Date
+                        </th>
+
+                        <th>
+                            Termination
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            AD Sync
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="employeeTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LIFECYCLE
+    ========================================================== -->
+
+    <section class="card lifecycle">
+
+        <div class="card-header">
+
+            <h2>
+                Legacy Employee Lifecycle
+            </h2>
+
+            <p>
+                Expected HR workflow versus actual legacy synchronization
+            </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-step">
+
+                <strong>
+                    1. Hire
+                </strong>
+
+                <span>
+                    HR creates employee record and informs IT.
+                </span>
+
+            </div>
+
+
+            <div class="timeline-step">
+
+                <strong>
+                    2. Account Creation
+                </strong>
+
+                <span>
+                    AD account is created, then MLHMS and departmental
+                    accounts may be created separately.
+                </span>
+
+            </div>
+
+
+            <div class="timeline-step">
+
+                <strong>
+                    3. Department Change
+                </strong>
+
+                <span>
+                    HR updates employee details, but application
+                    permissions may not be updated automatically.
+                </span>
+
+            </div>
+
+
+            <div class="timeline-step">
+
+                <strong>
+                    4. Termination
+                </strong>
+
+                <span>
+                    HR marks the employee as terminated and IT disables AD.
+                </span>
+
+            </div>
+
+
+            <div class="timeline-step">
+
+                <strong>
+                    5. Legacy Cleanup
+                </strong>
+
+                <span>
+                    Local MLHMS and extension accounts may remain active
+                    because there is no centralized deprovisioning process.
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         ISSUES
+    ========================================================== -->
+
+    <section class="card issues">
+
+        <div class="card-header">
+
+            <h2>
+                HR / Identity Security Issues
+            </h2>
+
+            <p>
+                Findings identified during the MLHMS legacy assessment.
+            </p>
+
+        </div>
+
+
+        <div class="issues-body">
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Terminated employee account remains active
+                    </strong>
+
+                    <span>
+
+                        HR termination does not automatically revoke
+                        every MLHMS and departmental credential.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Manual provisioning
+                    </strong>
+
+                    <span>
+
+                        New employees require multiple manual account
+                        creation steps across different systems.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Department changes may not update privileges
+                    </strong>
+
+                    <span>
+
+                        An employee transferring from one department
+                        may retain permissions belonging to the old role.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        No central identity lifecycle
+                    </strong>
+
+                    <span>
+
+                        HR, Active Directory, MLHMS and extensions
+                        effectively maintain separate representations
+                        of the same employee.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Ownership and review responsibilities unclear
+                    </strong>
+
+                    <span>
+
+                        It is not always clear whether HR, IT or the
+                        individual application owner is responsible
+                        for removing legacy access.
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+    const employees = [
+
+        {
+            id:
+                "EMP-0001",
+
+            name:
+                "Cedric Lacharmante",
+
+            department:
+                "IT",
+
+            title:
+                "System Administrator",
+
+            manager:
+                "IT Manager",
+
+            start:
+                "2024-01-15",
+
+            termination:
+                "",
+
+            status:
+                "Active",
+
+            adStatus:
+                "Enabled",
+
+            email:
+                "cedric.admin@meridian.example",
+
+            role:
+                "System Administrator",
+
+            sync:
+                "Synced"
+
+        },
+
+
+        {
+            id:
+                "EMP-0002",
+
+            name:
+                "Sarah Morgan",
+
+            department:
+                "Reception",
+
+            title:
+                "Reception Officer",
+
+            manager:
+                "Reception Supervisor",
+
+            start:
+                "2021-05-10",
+
+            termination:
+                "",
+
+            status:
+                "Active",
+
+            adStatus:
+                "Enabled",
+
+            email:
+                "s.morgan@meridian.example",
+
+            role:
+                "Reception User",
+
+            sync:
+                "Synced"
+
+        },
+
+
+        {
+            id:
+                "EMP-0003",
+
+            name:
+                "Daniel Green",
+
+            department:
+                "Laboratory",
+
+            title:
+                "Laboratory Technician",
+
+            manager:
+                "Laboratory Manager",
+
+            start:
+                "2020-09-01",
+
+            termination:
+                "",
+
+            status:
+                "Active",
+
+            adStatus:
+                "Enabled",
+
+            email:
+                "d.green@meridian.example",
+
+            role:
+                "Laboratory User",
+
+            sync:
+                "Partial"
+
+        },
+
+
+        {
+            id:
+                "EMP-0004",
+
+            name:
+                "Former User",
+
+            department:
+                "Former Staff",
+
+            title:
+                "Former Employee",
+
+            manager:
+                "HR Manager",
+
+            start:
+                "2018-03-20",
+
+            termination:
+                "2026-05-30",
+
+            status:
+                "Terminated",
+
+            adStatus:
+                "Disabled",
+
+            email:
+                "former.user@meridian.example",
+
+            role:
+                "Legacy USER",
+
+            sync:
+                "FAILED"
+
+        },
+
+
+        {
+            id:
+                "EMP-0005",
+
+            name:
+                "Michael Patel",
+
+            department:
+                "Finance",
+
+            title:
+                "Finance Officer",
+
+            manager:
+                "Finance Manager",
+
+            start:
+                "2022-02-14",
+
+            termination:
+                "",
+
+            status:
+                "Active",
+
+            adStatus:
+                "Enabled",
+
+            email:
+                "m.patel@meridian.example",
+
+            role:
+                "Billing User",
+
+            sync:
+                "Partial"
+
+        }
+
+    ];
+
+
+    function renderEmployees(){
+
+        const table =
+            document.getElementById(
+                "employeeTable"
+            );
+
+
+        table.innerHTML = "";
+
+
+        let activeCount =
+            0;
+
+
+        employees.forEach(
+            function(employee){
+
+                if(
+                    employee.status ===
+                    "Active"
+                ){
+
+                    activeCount++;
+
+                }
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                const statusClass =
+                    employee.status ===
+                    "Active"
+                        ? "green"
+                        : "red";
+
+
+                const syncClass =
+                    employee.sync ===
+                    "Synced"
+                        ? "green"
+                        : employee.sync ===
+                          "FAILED"
+                            ? "red"
+                            : "orange";
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHtml(
+                            employee.id
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            employee.name
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            employee.department
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            employee.manager
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            employee.start
+                        )}
+                    </td>
+
+                    <td>
+                        ${employee.termination
+                            ? escapeHtml(
+                                employee.termination
+                            )
+                            : "—"}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${statusClass}">
+
+                            ${escapeHtml(
+                                employee.status
+                            )}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge ${syncClass}">
+
+                            ${escapeHtml(
+                                employee.sync
+                            )}
+
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                table.appendChild(
+                    row
+                );
+
+            }
+        );
+
+
+        document
+            .getElementById(
+                "activeCount"
+            )
+            .textContent =
+            activeCount;
+
+    }
+
+
+    function searchEmployee(){
+
+        const id =
+            document
+                .getElementById(
+                    "employeeId"
+                )
+                .value
+                .trim()
+                .toUpperCase();
+
+
+        const employee =
+            employees.find(
+                function(item){
+
+                    return (
+                        item.id ===
+                        id
+                    );
+
+                }
+            );
+
+
+        const result =
+            document.getElementById(
+                "employee"
+            );
+
+
+        if(!employee){
+
+            result.classList.remove(
+                "show"
+            );
+
+            alert(
+                "No synthetic HR record found."
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "employeeName"
+            )
+            .textContent =
+            employee.name;
+
+
+        document
+            .getElementById(
+                "employeeReference"
+            )
+            .textContent =
+            `Employee ID: ${employee.id}`;
+
+
+        const status =
+            document.getElementById(
+                "employeeStatus"
+            );
+
+
+        status.textContent =
+            employee.status;
+
+
+        status.className =
+            "status " +
+            (
+                employee.status ===
+                "Active"
+                    ? "active"
+                    : "terminated"
+            );
+
+
+        const fields = [
+
+            {
+                label:
+                    "Title",
+
+                value:
+                    employee.title
+            },
+
+            {
+                label:
+                    "Department",
+
+                value:
+                    employee.department
+            },
+
+            {
+                label:
+                    "Line Manager / Supervisor",
+
+                value:
+                    employee.manager
+            },
+
+            {
+                label:
+                    "Start Date",
+
+                value:
+                    employee.start
+            },
+
+            {
+                label:
+                    "Termination Date",
+
+                value:
+                    employee.termination ||
+                    "Not terminated"
+            },
+
+            {
+                label:
+                    "Email",
+
+                value:
+                    employee.email
+            },
+
+            {
+                label:
+                    "Legacy Role",
+
+                value:
+                    employee.role
+            },
+
+            {
+                label:
+                    "Active Directory",
+
+                value:
+                    employee.adStatus
+            },
+
+            {
+                label:
+                    "MLHMS Synchronization",
+
+                value:
+                    employee.sync
+            }
+
+        ];
+
+
+        const grid =
+            document.getElementById(
+                "employeeGrid"
+            );
+
+
+        grid.innerHTML =
+            "";
+
+
+        fields.forEach(
+            function(field){
+
+                const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                div.className =
+                    "field";
+
+
+                div.innerHTML = `
+
+                    <div class="field-label">
+                        ${escapeHtml(
+                            field.label
+                        )}
+                    </div>
+
+                    <div class="field-value">
+                        ${escapeHtml(
+                            field.value
+                        )}
+                    </div>
+
+                `;
+
+
+                grid.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+        result.classList.add(
+            "show"
+        );
+
+    }
+
+
+    function escapeHtml(
+        value
+    ){
+
+        return String(
+            value ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    function goDashboard(){
+
+        window.location.href =
+            "/routes/dashboard.html";
+
+    }
+
+
+    renderEmployees();
+
+</script>
+
+
+</body>
+
+</html>
