@@ -1,1 +1,2179 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Active Directory
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --navy: #101b24;
+            --navy2: #172631;
+            --navy3: #243944;
+
+            --background: #eef2f5;
+            --white: #ffffff;
+
+            --text: #1f2d36;
+            --muted: #687780;
+
+            --blue: #1976d2;
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+            --purple: #6a1b9a;
+
+            --border: #d7e0e6;
+
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafc
+                );
+
+            color:
+                var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+
+            height:
+                68px;
+
+            padding:
+                0 22px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            color:
+                #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .16
+                );
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .brand-logo {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+
+            font-weight:
+                800;
+
+        }
+
+
+        .brand-title {
+
+            font-size:
+                15px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .brand-subtitle {
+
+            margin-top:
+                2px;
+
+            font-size:
+                10px;
+
+            color:
+                #afbec8;
+
+        }
+
+
+        .header-right {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+        }
+
+
+        .legacy-badge {
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .back-button {
+
+            padding:
+                8px 11px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            border-radius:
+                7px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
+
+            color:
+                white;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+
+            min-height:
+                calc(
+                    100vh - 68px
+                );
+
+            display:
+                flex;
+
+        }
+
+
+        aside {
+
+            width:
+                235px;
+
+            flex-shrink:
+                0;
+
+            padding:
+                18px 0;
+
+            background:
+                var(--navy);
+
+            color:
+                white;
+
+        }
+
+
+        .sidebar-heading {
+
+            padding:
+                10px 18px 8px;
+
+            color:
+                #90a4ae;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .08em;
+
+        }
+
+
+        .side-item {
+
+            width:
+                100%;
+
+            padding:
+                11px 18px;
+
+            border:
+                none;
+
+            background:
+                transparent;
+
+            color:
+                #dce4e9;
+
+            text-align:
+                left;
+
+            font-size:
+                11px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .side-item:hover,
+        .side-item.active {
+
+            background:
+                var(--navy3);
+
+            color:
+                #fff;
+
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+
+            flex:
+                1;
+
+            min-width:
+                0;
+
+            padding:
+                24px;
+
+        }
+
+
+        .page-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .page-header h1 {
+
+            font-size:
+                25px;
+
+        }
+
+
+        .page-header p {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .system-label {
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            background:
+                white;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+
+            padding:
+                14px 16px;
+
+            margin-bottom:
+                17px;
+
+            border-left:
+                4px solid
+                var(--orange);
+
+            background:
+                #fff8e8;
+
+            border-top:
+                1px solid
+                #ffe3ab;
+
+            border-right:
+                1px solid
+                #ffe3ab;
+
+            border-bottom:
+                1px solid
+                #ffe3ab;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+
+        .warning strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            color:
+                #965400;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .warning p {
+
+            color:
+                #795a2e;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================== */
+
+        .stats {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap:
+                12px;
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .stat {
+
+            padding:
+                16px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            background:
+                white;
+
+        }
+
+
+        .stat-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .stat-value {
+
+            margin-top:
+                8px;
+
+            font-size:
+                25px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .danger {
+
+            color:
+                var(--red);
+
+        }
+
+
+        .orange {
+
+            color:
+                var(--orange);
+
+        }
+
+
+        .green {
+
+            color:
+                var(--green);
+
+        }
+
+
+        /* =========================================================
+           GRID
+        ========================================================== */
+
+        .content-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1.3fr
+                .7fr;
+
+            gap:
+                15px;
+
+        }
+
+
+        .card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .035
+                );
+
+        }
+
+
+        .card-header {
+
+            padding:
+                15px 16px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+
+        .card-header h2 {
+
+            font-size:
+                13px;
+
+        }
+
+
+        .card-header p {
+
+            margin-top:
+                4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        /* =========================================================
+           TABLE
+        ========================================================== */
+
+        .table-wrap {
+
+            overflow:
+                auto;
+
+        }
+
+
+        table {
+
+            width:
+                100%;
+
+            min-width:
+                800px;
+
+            border-collapse:
+                collapse;
+
+        }
+
+
+        th,
+        td {
+
+            padding:
+                10px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            text-align:
+                left;
+
+            font-size:
+                10px;
+
+        }
+
+
+        th {
+
+            background:
+                #f6f8fa;
+
+            color:
+                #71808a;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        td {
+
+            color:
+                #374853;
+
+        }
+
+
+        .badge {
+
+            display:
+                inline-block;
+
+            padding:
+                4px 7px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .badge.red {
+
+            background:
+                #ffebee;
+
+            color:
+                #b71c1c;
+
+        }
+
+
+        .badge.orange {
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+        }
+
+
+        .badge.green {
+
+            background:
+                #e8f5e9;
+
+            color:
+                #2e7d32;
+
+        }
+
+
+        .badge.blue {
+
+            background:
+                #e3f2fd;
+
+            color:
+                #1565c0;
+
+        }
+
+
+        .badge.purple {
+
+            background:
+                #f3e5f5;
+
+            color:
+                #6a1b9a;
+
+        }
+
+
+        /* =========================================================
+           DIRECTORY TREE
+        ========================================================== */
+
+        .tree {
+
+            padding:
+                16px;
+
+        }
+
+
+        .tree-root {
+
+            padding:
+                12px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            background:
+                #f9fbfc;
+
+        }
+
+
+        .tree-title {
+
+            font-weight:
+                800;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .tree-sub {
+
+            margin-top:
+                8px;
+
+            margin-left:
+                12px;
+
+        }
+
+
+        .tree-item {
+
+            padding:
+                7px 0;
+
+            color:
+                #5c6b75;
+
+            font-size:
+                10px;
+
+            border-bottom:
+                1px dashed
+                #e7edf1;
+
+        }
+
+
+        .tree-item:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        /* =========================================================
+           SYNCHRONIZATION
+        ========================================================== */
+
+        .sync-card {
+
+            padding:
+                15px;
+
+        }
+
+
+        .sync-row {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+
+        .sync-row:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        .sync-label {
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .sync-value {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        /* =========================================================
+           ISSUES
+        ========================================================== */
+
+        .issues {
+
+            margin-top:
+                15px;
+
+            padding:
+                15px;
+
+        }
+
+
+        .issue {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+
+        .issue:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+
+        .issue-dot {
+
+            width:
+                8px;
+
+            height:
+                8px;
+
+            flex-shrink:
+                0;
+
+            margin-top:
+                4px;
+
+            border-radius:
+                50%;
+
+        }
+
+
+        .issue strong {
+
+            display:
+                block;
+
+            font-size:
+                10px;
+
+            margin-bottom:
+                3px;
+
+        }
+
+
+        .issue span {
+
+            display:
+                block;
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+            line-height:
+                1.45;
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+
+            margin-top:
+                18px;
+
+            padding-top:
+                12px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            color:
+                #8a96a0;
+
+            font-size:
+                9px;
+
+            text-align:
+                center;
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (
+            max-width: 1050px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 760px
+        ) {
+
+            aside {
+
+                display:
+                    none;
+
+            }
+
+            main {
+
+                padding:
+                    15px;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .page-header {
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =============================================================
+     HEADER
+================================================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS Active Directory Administration
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY DIRECTORY
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =============================================================
+     SIDEBAR
+================================================================= -->
+
+<aside>
+
+    <div class="sidebar-heading">
+        Identity
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+
+    <button
+        class="side-item active">
+
+        Active Directory
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/login-log.html'">
+
+        Login Logs
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Database
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/database.html'">
+
+        Legacy Database
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Password
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/password_evaluator.html'">
+
+        Password Evaluator
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/password_generator.html'">
+
+        Password Generator
+
+    </button>
+
+</aside>
+
+
+<!-- =============================================================
+     MAIN
+================================================================= -->
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Active Directory
+            </h1>
+
+            <p>
+                Legacy centralized directory with fragmented application synchronization
+            </p>
+
+        </div>
+
+
+        <div class="system-label">
+            Domain: MERIDIAN.LOCAL
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            DIRECTORY SYNCHRONIZATION WARNING
+        </strong>
+
+        <p>
+
+            MLHMS uses Active Directory for selected departmental
+            applications, but several legacy modules maintain their
+            own local accounts. Employee lifecycle events are not
+            consistently synchronized between systems.
+
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                AD Accounts
+            </div>
+
+            <div
+                id="adAccounts"
+                class="stat-value">
+                386
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Active
+            </div>
+
+            <div
+                id="activeAccounts"
+                class="stat-value green">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Stale Accounts
+            </div>
+
+            <div
+                class="stat-value orange">
+                43
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Sync Health
+            </div>
+
+            <div
+                class="stat-value danger">
+                61%
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="content-grid">
+
+
+        <!-- =====================================================
+             DIRECTORY USERS
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Directory Accounts
+                </h2>
+
+                <p>
+                    Synthetic representation of legacy AD users
+                </p>
+
+            </div>
+
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Account
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Group
+                            </th>
+
+                            <th>
+                                AD Status
+                            </th>
+
+                            <th>
+                                MLHMS Status
+                            </th>
+
+                            <th>
+                                Sync
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                cedric.admin
+                            </td>
+
+                            <td>
+                                IT
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge purple">
+
+                                    Domain Admin
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Enabled
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Synced
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                reception01
+                            </td>
+
+                            <td>
+                                Reception
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge blue">
+
+                                    Reception
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Enabled
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Synced
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                lab03
+                            </td>
+
+                            <td>
+                                Laboratory
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge blue">
+
+                                    Laboratory
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Enabled
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge orange">
+
+                                    Legacy
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge orange">
+
+                                    Partial
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                former.user
+                            </td>
+
+                            <td>
+                                Former Staff
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge blue">
+
+                                    Staff
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge red">
+
+                                    Disabled
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge red">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge red">
+
+                                    FAILED
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                service.lab
+                            </td>
+
+                            <td>
+                                Laboratory
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge purple">
+
+                                    Service
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Enabled
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge green">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge orange">
+
+                                    Unknown
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DIRECTORY TREE
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Directory Structure
+                </h2>
+
+                <p>
+                    Legacy organizational units
+                </p>
+
+            </div>
+
+
+            <div class="tree">
+
+                <div class="tree-root">
+
+                    <div class="tree-title">
+                        MERIDIAN.LOCAL
+                    </div>
+
+
+                    <div class="tree-sub">
+
+                        <div class="tree-item">
+                            ├─ Administrators
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ IT
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ Reception
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ Laboratory
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ Pharmacy
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ Finance
+                        </div>
+
+                        <div class="tree-item">
+                            ├─ Human Resources
+                        </div>
+
+                        <div class="tree-item">
+                            └─ Former Employees
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="sync-card">
+
+
+                <div class="sync-row">
+
+                    <div>
+
+                        <div class="sync-label">
+                            Directory → MLHMS
+                        </div>
+
+                        <div class="sync-value">
+                            Last synchronization
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        18 hours ago
+                    </span>
+
+                </div>
+
+
+                <div class="sync-row">
+
+                    <div>
+
+                        <div class="sync-label">
+                            HR → Directory
+                        </div>
+
+                        <div class="sync-value">
+                            Employee lifecycle
+                        </div>
+
+                    </div>
+
+                    <span class="badge green">
+                        Operational
+                    </span>
+
+                </div>
+
+
+                <div class="sync-row">
+
+                    <div>
+
+                        <div class="sync-label">
+                            Directory → Laboratory
+                        </div>
+
+                        <div class="sync-value">
+                            Extension synchronization
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        Partial
+                    </span>
+
+                </div>
+
+
+                <div class="sync-row">
+
+                    <div>
+
+                        <div class="sync-label">
+                            Directory → Billing
+                        </div>
+
+                        <div class="sync-value">
+                            Local application accounts
+                        </div>
+
+                    </div>
+
+                    <span class="badge red">
+                        Not Integrated
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         KNOWN PROBLEMS
+    ========================================================== -->
+
+    <section class="card issues">
+
+        <div class="card-header">
+
+            <h2>
+                Directory Security Issues
+            </h2>
+
+            <p>
+                Problems identified during the MLHMS legacy review
+            </p>
+
+        </div>
+
+
+        <div class="issue">
+
+            <span
+                class="issue-dot"
+                style="background:#c62828;">
+            </span>
+
+            <div>
+
+                <strong>
+                    Disabled AD account remains active in MLHMS
+                </strong>
+
+                <span>
+
+                    When an employee is terminated, Active Directory
+                    is disabled but some legacy applications retain
+                    locally stored accounts.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="issue">
+
+            <span
+                class="issue-dot"
+                style="background:#ef6c00;">
+            </span>
+
+            <div>
+
+                <strong>
+                    Multiple identity stores
+                </strong>
+
+                <span>
+
+                    Users can have separate credentials for MLHMS,
+                    laboratory, billing and other departmental systems.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="issue">
+
+            <span
+                class="issue-dot"
+                style="background:#c62828;">
+            </span>
+
+            <div>
+
+                <strong>
+                    Excessive directory privileges
+                </strong>
+
+                <span>
+
+                    Some IT groups grant broad administrative rights
+                    that are not restricted according to least privilege.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="issue">
+
+            <span
+                class="issue-dot"
+                style="background:#ef6c00;">
+            </span>
+
+            <div>
+
+                <strong>
+                    Unknown service-account ownership
+                </strong>
+
+                <span>
+
+                    Several service accounts lack documented owners,
+                    expiry dates or regular review schedules.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="issue">
+
+            <span
+                class="issue-dot"
+                style="background:#c62828;">
+            </span>
+
+            <div>
+
+                <strong>
+                    Inconsistent synchronization
+                </strong>
+
+                <span>
+
+                    Applications maintain different states for the
+                    same employee account.
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+
+    /*
+     * ============================================================
+     * LOAD USER COUNT
+     * ============================================================
+     */
+
+    async function loadAccountSummary() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/users"
+                );
+
+
+            const data =
+                await response.json();
+
+
+            const users =
+                data.users ||
+                [];
+
+
+            const active =
+                users.filter(
+                    function (
+                        user
+                    ) {
+
+                        return (
+                            user.status ===
+                            "Active"
+                        );
+
+                    }
+                ).length;
+
+
+            document
+                .getElementById(
+                    "activeAccounts"
+                )
+                .textContent =
+                active;
+
+
+        } catch {
+
+            document
+                .getElementById(
+                    "activeAccounts"
+                )
+                .textContent =
+                "ERR";
+
+        }
+
+    }
+
+
+    function goDashboard() {
+
+        window.location.href =
+            "/routes/dashboard.html";
+
+    }
+
+
+    loadAccountSummary();
+
+</script>
+
+
+</body>
+
+</html>
