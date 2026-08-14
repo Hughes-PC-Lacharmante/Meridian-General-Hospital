@@ -1,1 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | Dashboard
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+
+            --navy: #17212b;
+            --navy-dark: #111a22;
+            --navy-light: #263642;
+
+            --background: #eef2f5;
+            --white: #ffffff;
+
+            --text: #1f2933;
+            --muted: #68737d;
+
+            --blue: #1976d2;
+            --blue-dark: #125a9c;
+
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+
+            --border: #d9e0e6;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4 0%,
+                    #f7f9fb 100%
+                );
+
+            color: var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 24px;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-dark),
+                    var(--navy)
+                );
+
+            box-shadow:
+                0 2px 8px rgba(0,0,0,.15);
+
+        }
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+        .brand-logo {
+
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .09
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+
+            font-weight: 800;
+
+        }
+
+        .brand-name {
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+        }
+
+        .brand-subtitle {
+
+            margin-top: 2px;
+
+            color: #b7c4cf;
+
+            font-size: 11px;
+
+        }
+
+        .header-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+        .system-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 10px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .06
+                );
+
+            font-size: 11px;
+
+        }
+
+        .status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #66bb6a;
+
+            box-shadow:
+                0 0 8px
+                rgba(
+                    102,
+                    187,
+                    106,
+                    .6
+                );
+
+        }
+
+        .user-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+        .user-avatar {
+
+            width: 36px;
+            height: 36px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background: #1e88e5;
+
+            font-weight: 800;
+
+            font-size: 13px;
+
+        }
+
+        .user-info {
+
+            line-height: 1.15;
+
+        }
+
+        .user-name {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+        .user-role {
+
+            margin-top: 2px;
+
+            color: #b7c4cf;
+
+            font-size: 10px;
+
+        }
+
+        .logout {
+
+            border: none;
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            background: #ffffff12;
+
+            color: #fff;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+        }
+
+        .logout:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .16
+                );
+
+        }
+
+        /* =========================================================
+           LAYOUT
+        ========================================================= */
+
+        .layout {
+
+            display: flex;
+
+            min-height:
+                calc(
+                    100vh - 70px
+                );
+
+        }
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        aside {
+
+            width: 235px;
+
+            padding: 18px 0;
+
+            background:
+                var(--navy);
+
+            color: #fff;
+
+            flex-shrink: 0;
+
+        }
+
+        .nav-heading {
+
+            padding:
+                10px
+                18px
+                7px;
+
+            color: #90a4ae;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: .08em;
+
+            text-transform: uppercase;
+
+        }
+
+        .nav-item {
+
+            width: 100%;
+
+            padding:
+                12px
+                18px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #d9e2e8;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            cursor: pointer;
+
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+
+            background:
+                var(--navy-light);
+
+            color: #fff;
+
+        }
+
+        .nav-icon {
+
+            width: 18px;
+
+            text-align: center;
+
+            opacity: .85;
+
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 25px;
+
+        }
+
+        .page-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+
+        }
+
+        .page-header h1 {
+
+            font-size: 25px;
+
+            color:
+                #24323f;
+
+        }
+
+        .page-header p {
+
+            margin-top: 5px;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+        .date {
+
+            padding: 9px 12px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 8px;
+
+            background: var(--white);
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+        }
+
+        /* =========================================================
+           WARNING
+        ========================================================= */
+
+        .warning {
+
+            margin-bottom: 20px;
+
+            padding: 15px 17px;
+
+            border-left:
+                4px solid
+                var(--orange);
+
+            background:
+                #fff8e8;
+
+            border-top:
+                1px solid #ffe5ad;
+
+            border-right:
+                1px solid #ffe5ad;
+
+            border-bottom:
+                1px solid #ffe5ad;
+
+            border-radius:
+                0 8px 8px 0;
+
+        }
+
+        .warning-title {
+
+            color:
+                #9a5600;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 5px;
+
+        }
+
+        .warning-text {
+
+            color:
+                #7c5b2a;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+        }
+
+        /* =========================================================
+           CARDS
+        ========================================================= */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        210px,
+                        1fr
+                    )
+                );
+
+            gap: 15px;
+
+        }
+
+        .card {
+
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 2px 5px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .04
+                );
+
+        }
+
+        .stat-card {
+
+            padding: 18px;
+
+        }
+
+        .stat-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+        }
+
+        .stat-title {
+
+            color:
+                var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing: .04em;
+
+        }
+
+        .stat-icon {
+
+            width: 31px;
+            height: 31px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 8px;
+
+            background:
+                #eaf2fb;
+
+            color:
+                var(--blue);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+        .stat-value {
+
+            margin-top: 14px;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color:
+                #23313d;
+
+        }
+
+        .stat-meta {
+
+            margin-top: 6px;
+
+            color:
+                var(--muted);
+
+            font-size: 10px;
+
+        }
+
+        .danger {
+
+            color:
+                var(--red);
+
+        }
+
+        .warning-text-stat {
+
+            color:
+                var(--orange);
+
+        }
+
+        /* =========================================================
+           CONTENT GRID
+        ========================================================= */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.25fr .75fr;
+
+            gap: 15px;
+
+            margin-top: 15px;
+
+        }
+
+        .section-card {
+
+            padding: 18px;
+
+        }
+
+        .section-title {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            margin-bottom: 15px;
+
+        }
+
+        .section-title h2 {
+
+            font-size: 14px;
+
+        }
+
+        .view-all {
+
+            border: none;
+
+            background: none;
+
+            color:
+                var(--blue);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+        /* =========================================================
+           TABLES
+        ========================================================= */
+
+        table {
+
+            width: 100%;
+
+            border-collapse:
+                collapse;
+
+        }
+
+        th,
+        td {
+
+            padding:
+                10px 8px;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+            text-align:
+                left;
+
+            font-size:
+                11px;
+
+        }
+
+        th {
+
+            background:
+                #f7f9fb;
+
+            color:
+                #71808d;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                .03em;
+
+        }
+
+        td {
+
+            color:
+                #344350;
+
+        }
+
+        tr:last-child td {
+
+            border-bottom:
+                none;
+
+        }
+
+        .badge {
+
+            display:
+                inline-block;
+
+            padding:
+                4px 7px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+        .badge.green {
+
+            background:
+                #e8f5e9;
+
+            color:
+                #2e7d32;
+
+        }
+
+        .badge.orange {
+
+            background:
+                #fff3e0;
+
+            color:
+                #e65100;
+
+        }
+
+        .badge.red {
+
+            background:
+                #ffebee;
+
+            color:
+                #b71c1c;
+
+        }
+
+        .badge.blue {
+
+            background:
+                #e3f2fd;
+
+            color:
+                #1565c0;
+
+        }
+
+        /* =========================================================
+           QUICK ACTIONS
+        ========================================================= */
+
+        .quick-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                10px;
+
+        }
+
+        .quick-action {
+
+            padding:
+                14px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                8px;
+
+            background:
+                #fff;
+
+            cursor:
+                pointer;
+
+            text-align:
+                left;
+
+            transition:
+                background .15s ease,
+                border-color .15s ease;
+
+        }
+
+        .quick-action:hover {
+
+            background:
+                #f8fafc;
+
+            border-color:
+                #b7c4cf;
+
+        }
+
+        .quick-action strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            font-size:
+                11px;
+
+        }
+
+        .quick-action span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+        /* =========================================================
+           SYSTEM HEALTH
+        ========================================================= */
+
+        .health-row {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                10px 0;
+
+            border-bottom:
+                1px solid
+                #edf1f4;
+
+        }
+
+        .health-row:last-child {
+
+            border-bottom:
+                none;
+
+        }
+
+        .health-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+        }
+
+        .health-indicator {
+
+            width:
+                9px;
+
+            height:
+                9px;
+
+            border-radius:
+                50%;
+
+        }
+
+        .health-green {
+
+            background:
+                var(--green);
+
+        }
+
+        .health-orange {
+
+            background:
+                var(--orange);
+
+        }
+
+        .health-red {
+
+            background:
+                var(--red);
+
+        }
+
+        .health-name {
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+        }
+
+        .health-status {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            margin-top:
+                20px;
+
+            padding-top:
+                15px;
+
+            border-top:
+                1px solid
+                var(--border);
+
+            color:
+                #8a96a0;
+
+            font-size:
+                10px;
+
+            text-align:
+                center;
+
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (
+            max-width: 1000px
+        ) {
+
+            aside {
+
+                width: 190px;
+
+            }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .system-status {
+
+                display: none;
+
+            }
+
+        }
+
+        @media (
+            max-width: 760px
+        ) {
+
+            .layout {
+
+                flex-direction:
+                    column;
+
+            }
+
+            aside {
+
+                width: 100%;
+
+                padding:
+                    6px 0;
+
+                display: flex;
+
+                overflow-x:
+                    auto;
+
+            }
+
+            .nav-heading {
+
+                display: none;
+
+            }
+
+            .nav-item {
+
+                min-width:
+                    135px;
+
+            }
+
+            main {
+
+                padding:
+                    18px;
+
+            }
+
+            .header-right {
+
+                gap:
+                    5px;
+
+            }
+
+            .user-info {
+
+                display: none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =============================================================
+     HEADER
+================================================================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                Meridian Legacy Healthcare Management System
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            System Operational
+
+        </div>
+
+
+        <div class="user-box">
+
+            <div
+                id="userAvatar"
+                class="user-avatar">
+                ?
+            </div>
+
+            <div class="user-info">
+
+                <div
+                    id="userName"
+                    class="user-name">
+                    User
+                </div>
+
+                <div
+                    id="userRole"
+                    class="user-role">
+                    Unknown
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="logout"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =============================================================
+     SIDEBAR
+================================================================= -->
+
+<aside>
+
+    <div class="nav-heading">
+        Main
+    </div>
+
+
+    <button
+        class="nav-item active"
+        onclick="navigate('dashboard')">
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        Dashboard
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/patient.html')">
+
+        <span class="nav-icon">
+            ◉
+        </span>
+
+        Patient Records
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/appointments.html')">
+
+        <span class="nav-icon">
+            □
+        </span>
+
+        Appointments
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/billing.html')">
+
+        <span class="nav-icon">
+            $
+        </span>
+
+        Medical Billing
+
+    </button>
+
+
+    <div class="nav-heading">
+        Departments
+    </div>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/lab.html')">
+
+        <span class="nav-icon">
+            +
+        </span>
+
+        Laboratory
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/hr.html')">
+
+        <span class="nav-icon">
+            #
+        </span>
+
+        Human Resources
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/routes/staff.html')">
+
+        <span class="nav-icon">
+            ○
+        </span>
+
+        Staff Management
+
+    </button>
+
+
+    <div class="nav-heading">
+        Administration
+    </div>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/security/access.html')">
+
+        <span class="nav-icon">
+            🔑
+        </span>
+
+        Access Management
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/security/database.html')">
+
+        <span class="nav-icon">
+            ▤
+        </span>
+
+        Database
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/security/login-log.html')">
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
+        Login Logs
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="navigate('/security/active_directory.html')">
+
+        <span class="nav-icon">
+            ◫
+        </span>
+
+        Active Directory
+
+    </button>
+
+</aside>
+
+
+<!-- =============================================================
+     MAIN CONTENT
+================================================================= -->
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Meridian General Hospital — MLHMS Operational Overview
+            </p>
+
+        </div>
+
+
+        <div
+            id="currentDate"
+            class="date">
+            Loading date...
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         LEGACY WARNING
+    ========================================================== -->
+
+    <div class="warning">
+
+        <div class="warning-title">
+
+            Legacy System Notice
+
+        </div>
+
+        <div class="warning-text">
+
+            MLHMS is operating in its legacy architecture.
+            Several subsystems use independent authentication,
+            configuration and data-management mechanisms.
+            Security controls may differ between departments
+            and extensions.
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATS
+    ========================================================== -->
+
+    <div class="grid">
+
+
+        <div class="card stat-card">
+
+            <div class="stat-header">
+
+                <div class="stat-title">
+                    Registered Patients
+                </div>
+
+                <div class="stat-icon">
+                    P
+                </div>
+
+            </div>
+
+            <div class="stat-value">
+                12,481
+            </div>
+
+            <div class="stat-meta">
+                Current records
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-header">
+
+                <div class="stat-title">
+                    Appointments
+                </div>
+
+                <div class="stat-icon">
+                    A
+                </div>
+
+            </div>
+
+            <div class="stat-value">
+                438
+            </div>
+
+            <div class="stat-meta">
+                Scheduled today
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-header">
+
+                <div class="stat-title">
+                    Billing
+                </div>
+
+                <div class="stat-icon">
+                    $
+                </div>
+
+            </div>
+
+            <div class="stat-value">
+                Rs 3.7M
+            </div>
+
+            <div class="stat-meta">
+                Current outstanding balance
+            </div>
+
+        </div>
+
+
+        <div class="card stat-card">
+
+            <div class="stat-header">
+
+                <div class="stat-title">
+                    Security Findings
+                </div>
+
+                <div class="stat-icon danger">
+                    !
+                </div>
+
+            </div>
+
+            <div class="stat-value danger">
+                37
+            </div>
+
+            <div class="stat-meta warning-text-stat">
+                4 critical / high-risk items
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         CONTENT
+    ========================================================== -->
+
+    <div class="content-grid">
+
+
+        <!-- =====================================================
+             RECENT ACTIVITY
+        ====================================================== -->
+
+        <div class="card section-card">
+
+            <div class="section-title">
+
+                <h2>
+                    Recent Activity
+                </h2>
+
+                <button
+                    class="view-all"
+                    onclick="navigate('/security/login-log.html')">
+                    View Logs
+                </button>
+
+            </div>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            User
+                        </th>
+
+                        <th>
+                            Activity
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            09:43
+                        </td>
+
+                        <td>
+                            reception01
+                        </td>
+
+                        <td>
+                            Patient record viewed
+                        </td>
+
+                        <td>
+
+                            <span class="badge green">
+                                SUCCESS
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            09:47
+                        </td>
+
+                        <td>
+                            unknown
+                        </td>
+
+                        <td>
+                            Patient record viewed
+                        </td>
+
+                        <td>
+
+                            <span class="badge orange">
+                                REVIEW
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            10:02
+                        </td>
+
+                        <td>
+                            lab03
+                        </td>
+
+                        <td>
+                            Laboratory export
+                        </td>
+
+                        <td>
+
+                            <span class="badge blue">
+                                SUCCESS
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            10:14
+                        </td>
+
+                        <td>
+                            developer01
+                        </td>
+
+                        <td>
+                            Production configuration changed
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                REVIEW
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            10:26
+                        </td>
+
+                        <td>
+                            billing02
+                        </td>
+
+                        <td>
+                            Invoice updated
+                        </td>
+
+                        <td>
+
+                            <span class="badge green">
+                                SUCCESS
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =====================================================
+             SYSTEM HEALTH
+        ====================================================== -->
+
+        <div class="card section-card">
+
+            <div class="section-title">
+
+                <h2>
+                    System Health
+                </h2>
+
+            </div>
+
+
+            <div class="health-row">
+
+                <div class="health-left">
+
+                    <span class="health-indicator health-green"></span>
+
+                    <div>
+
+                        <div class="health-name">
+                            Patient Module
+                        </div>
+
+                        <div class="health-status">
+                            Operational
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="badge green">
+                    OK
+                </span>
+
+            </div>
+
+
+            <div class="health-row">
+
+                <div class="health-left">
+
+                    <span class="health-indicator health-green"></span>
+
+                    <div>
+
+                        <div class="health-name">
+                            Billing Module
+                        </div>
+
+                        <div class="health-status">
+                            Operational
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="badge green">
+                    OK
+                </span>
+
+            </div>
+
+
+            <div class="health-row">
+
+                <div class="health-left">
+
+                    <span class="health-indicator health-orange"></span>
+
+                    <div>
+
+                        <div class="health-name">
+                            Laboratory Extension
+                        </div>
+
+                        <div class="health-status">
+                            Legacy integration
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="badge orange">
+                    REVIEW
+                </span>
+
+            </div>
+
+
+            <div class="health-row">
+
+                <div class="health-left">
+
+                    <span class="health-indicator health-red"></span>
+
+                    <div>
+
+                        <div class="health-name">
+                            Patch Compliance
+                        </div>
+
+                        <div class="health-status">
+                            61% compliant
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="badge red">
+                    ALERT
+                </span>
+
+            </div>
+
+
+            <div class="health-row">
+
+                <div class="health-left">
+
+                    <span class="health-indicator health-orange"></span>
+
+                    <div>
+
+                        <div class="health-name">
+                            Backup Verification
+                        </div>
+
+                        <div class="health-status">
+                            Last restore test unknown
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="badge orange">
+                    REVIEW
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         QUICK ACTIONS
+    ========================================================== -->
+
+    <div class="card section-card" style="margin-top:15px">
+
+        <div class="section-title">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button
+                class="quick-action"
+                onclick="navigate('/routes/patient.html')">
+
+                <strong>
+                    Patient Search
+                </strong>
+
+                <span>
+                    Search and retrieve patient records
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                onclick="navigate('/routes/appointments.html')">
+
+                <strong>
+                    Appointment Management
+                </strong>
+
+                <span>
+                    Create and manage appointments
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                onclick="navigate('/routes/billing.html')">
+
+                <strong>
+                    Billing Management
+                </strong>
+
+                <span>
+                    Review patient billing information
+                </span>
+
+            </button>
+
+
+            <button
+                class="quick-action"
+                onclick="navigate('/security/access.html')">
+
+                <strong>
+                    Access Administration
+                </strong>
+
+                <span>
+                    Manage legacy user access
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+    /*
+     * ============================================================
+     * MLHMS DASHBOARD
+     * ============================================================
+     *
+     * Legacy session handling:
+     *
+     * The login page stores the session information inside
+     * sessionStorage.
+     *
+     * H.A.W.K.S. will eventually replace this workflow with
+     * proper centralized identity and access management.
+     *
+     * ============================================================
+     */
+
+
+    const user =
+        JSON.parse(
+            sessionStorage.getItem(
+                "mlhmsUser"
+            ) || "null"
+        );
+
+
+    /*
+     * Redirect unauthenticated users
+     * back to the login page.
+     */
+
+    if (!user) {
+
+        window.location.href =
+            "/";
+
+    }
+
+
+    /*
+     * ============================================================
+     * USER DISPLAY
+     * ============================================================
+     */
+
+    if (user) {
+
+        const userName =
+            document.getElementById(
+                "userName"
+            );
+
+        const userRole =
+            document.getElementById(
+                "userRole"
+            );
+
+        const avatar =
+            document.getElementById(
+                "userAvatar"
+            );
+
+
+        userName.textContent =
+            user.name ||
+            user.username ||
+            "Unknown User";
+
+
+        userRole.textContent =
+            user.role ||
+            "Unknown Role";
+
+
+        /*
+         * Generate a simple avatar
+         * from the user's initials.
+         */
+
+        const initials =
+            (
+                user.name ||
+                user.username ||
+                "U"
+            )
+                .split(" ")
+                .map(
+                    part =>
+                        part.charAt(0)
+                )
+                .slice(
+                    0,
+                    2
+                )
+                .join("")
+                .toUpperCase();
+
+
+        avatar.textContent =
+            initials;
+
+    }
+
+
+    /*
+     * ============================================================
+     * CURRENT DATE
+     * ============================================================
+     */
+
+    const currentDate =
+        document.getElementById(
+            "currentDate"
+        );
+
+
+    const today =
+        new Date();
+
+
+    currentDate.textContent =
+        today.toLocaleDateString(
+            "en-GB",
+            {
+                weekday:
+                    "short",
+
+                day:
+                    "2-digit",
+
+                month:
+                    "short",
+
+                year:
+                    "numeric"
+            }
+        );
+
+
+    /*
+     * ============================================================
+     * NAVIGATION
+     * ============================================================
+     */
+
+    function navigate(
+        destination
+    ) {
+
+        if (
+            destination ===
+            "dashboard"
+        ) {
+
+            window.scrollTo(
+                {
+                    top: 0,
+                    behavior: "smooth"
+                }
+            );
+
+            return;
+
+        }
+
+
+        window.location.href =
+            destination;
+
+    }
+
+
+    /*
+     * ============================================================
+     * LOGOUT
+     * ============================================================
+     */
+
+    function logout() {
+
+        sessionStorage.removeItem(
+            "mlhmsToken"
+        );
+
+        sessionStorage.removeItem(
+            "mlhmsUser"
+        );
+
+
+        window.location.href =
+            "/";
+
+    }
+
+</script>
+
+
+</body>
+</html>
