@@ -1,1 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MLHMS | IT Operations
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #101b24;
+            --navy2: #172631;
+            --navy3: #243944;
+
+            --white: #ffffff;
+            --background: #eef2f5;
+
+            --text: #1f2d36;
+            --muted: #687780;
+
+            --blue: #1976d2;
+            --green: #2e7d32;
+            --orange: #ef6c00;
+            --red: #c62828;
+            --purple: #6a1b9a;
+
+            --border: #d7e0e6;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #edf1f4,
+                    #f8fafc
+                );
+
+            color: var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        header {
+            height: 68px;
+
+            padding: 0 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, .16);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, .08);
+
+            border:
+                1px solid rgba(255, 255, 255, .15);
+
+            font-weight: 800;
+        }
+
+        .brand-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color: #afbec8;
+
+            font-size: 10px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legacy-badge {
+            padding: 6px 9px;
+
+            border-radius: 999px;
+
+            background: #fff3e0;
+            color: #e65100;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .back-button {
+            padding: 8px 11px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, .12);
+
+            border-radius: 7px;
+
+            background:
+                rgba(255, 255, 255, .05);
+
+            color: #fff;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           LAYOUT
+        ========================================================== */
+
+        .layout {
+            min-height:
+                calc(100vh - 68px);
+
+            display: flex;
+        }
+
+        aside {
+            width: 235px;
+
+            flex-shrink: 0;
+
+            padding: 18px 0;
+
+            background: var(--navy);
+
+            color: #fff;
+        }
+
+        .sidebar-heading {
+            padding: 10px 18px 8px;
+
+            color: #90a4ae;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .side-item {
+            width: 100%;
+
+            padding: 11px 18px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #dce4e9;
+
+            text-align: left;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+        .side-item:hover,
+        .side-item.active {
+            background: var(--navy3);
+            color: #fff;
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        main {
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 24px;
+        }
+
+        .page-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            margin-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 25px;
+        }
+
+        .page-header p {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .system-label {
+            padding: 9px 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: #fff;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        /* =========================================================
+           WARNING
+        ========================================================== */
+
+        .warning {
+            padding: 14px 16px;
+
+            margin-bottom: 17px;
+
+            border-left: 4px solid var(--red);
+
+            background: #fff1f1;
+
+            border-top: 1px solid #ffd0d0;
+            border-right: 1px solid #ffd0d0;
+            border-bottom: 1px solid #ffd0d0;
+
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning strong {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #9f1d1d;
+
+            font-size: 12px;
+        }
+
+        .warning p {
+            color: #7b3030;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+        }
+
+        /* =========================================================
+           STATS
+        ========================================================== */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            padding: 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background: #fff;
+        }
+
+        .stat-label {
+            color: var(--muted);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            margin-top: 8px;
+
+            font-size: 25px;
+
+            font-weight: 800;
+        }
+
+        .green {
+            color: var(--green);
+        }
+
+        .orange {
+            color: var(--orange);
+        }
+
+        .red {
+            color: var(--red);
+        }
+
+        .blue {
+            color: var(--blue);
+        }
+
+        /* =========================================================
+           CARDS
+        ========================================================== */
+
+        .card {
+            background: #fff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 2px 5px rgba(0, 0, 0, .035);
+        }
+
+        .card-header {
+            padding: 15px 16px;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .card-header h2 {
+            font-size: 13px;
+        }
+
+        .card-header p {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        /* =========================================================
+           INFRASTRUCTURE
+        ========================================================== */
+
+        .table-wrap {
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1050px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            text-align: left;
+
+            font-size: 10px;
+        }
+
+        th {
+            background: #f6f8fa;
+
+            color: #71808a;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+        }
+
+        td {
+            color: #374853;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 4px 7px;
+
+            border-radius: 999px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+        }
+
+        .badge.green {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge.orange {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge.red {
+            background: #ffebee;
+            color: #b71c1c;
+        }
+
+        .badge.blue {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge.purple {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        /* =========================================================
+           TWO-COLUMN OPERATIONS
+        ========================================================== */
+
+        .two-column {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 15px;
+
+            margin-top: 15px;
+        }
+
+        .operation-list {
+            padding: 15px;
+        }
+
+        .operation {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 15px;
+
+            padding: 11px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .operation:last-child {
+            border-bottom: none;
+        }
+
+        .operation-title {
+            font-size: 10px;
+
+            font-weight: 800;
+
+            margin-bottom: 3px;
+        }
+
+        .operation-detail {
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+        }
+
+        /* =========================================================
+           PATCHING
+        ========================================================== */
+
+        .patch-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            padding: 15px;
+        }
+
+        .patch {
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: #fbfcfd;
+        }
+
+        .patch h3 {
+            font-size: 10px;
+
+            margin-bottom: 7px;
+        }
+
+        .patch p {
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           CHANGE MANAGEMENT
+        ========================================================== */
+
+        .change-list {
+            padding: 15px;
+        }
+
+        .change {
+            padding: 11px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .change:last-child {
+            border-bottom: none;
+        }
+
+        .change-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 4px;
+        }
+
+        .change-id {
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+        .change-description {
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+        }
+
+        /* =========================================================
+           ISSUES
+        ========================================================== */
+
+        .issues {
+            margin-top: 15px;
+        }
+
+        .issues-body {
+            padding: 15px;
+        }
+
+        .issue {
+            display: flex;
+
+            gap: 9px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .issue:last-child {
+            border-bottom: none;
+        }
+
+        .issue-dot {
+            width: 8px;
+            height: 8px;
+
+            margin-top: 4px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+        }
+
+        .issue strong {
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 10px;
+        }
+
+        .issue span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 9px;
+
+            line-height: 1.45;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        footer {
+            margin-top: 18px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid var(--border);
+
+            color: #8a96a0;
+
+            font-size: 9px;
+
+            text-align: center;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 1000px) {
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .patch-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 850px) {
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            aside {
+                display: none;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .stats,
+            .patch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            M
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Meridian General Hospital
+            </div>
+
+            <div class="brand-subtitle">
+                MLHMS IT Operations & Infrastructure
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <span class="legacy-badge">
+            LEGACY IT CONSOLE
+        </span>
+
+        <button
+            class="back-button"
+            onclick="goDashboard()">
+
+            ← Dashboard
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside>
+
+    <div class="sidebar-heading">
+        IT Operations
+    </div>
+
+
+    <button
+        class="side-item active">
+
+        Infrastructure
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/database.html'">
+
+        Database
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/active_directory.html'">
+
+        Active Directory
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/access.html'">
+
+        Access Management
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Clinical Systems
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/lab.html'">
+
+        Laboratory
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/patient.html'">
+
+        Patient System
+
+    </button>
+
+
+    <div class="sidebar-heading">
+        Operations
+    </div>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/security/login-log.html'">
+
+        Logs
+
+    </button>
+
+
+    <button
+        class="side-item"
+        onclick="location.href='/routes/dashboard.html'">
+
+        Dashboard
+
+    </button>
+
+</aside>
+
+
+<main>
+
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                IT Operations
+            </h1>
+
+            <p>
+                Meridian General Hospital — Legacy Infrastructure & Configuration
+            </p>
+
+        </div>
+
+
+        <div class="system-label">
+            IT Console v4.7
+        </div>
+
+    </div>
+
+
+    <div class="warning">
+
+        <strong>
+            LEGACY IT OPERATIONS WARNING
+        </strong>
+
+        <p>
+
+            MLHMS infrastructure is maintained using a mixture of
+            documented procedures, manual changes and inherited
+            configurations. Several systems have different patch
+            baselines, ownership records and maintenance schedules.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================================================
+         STATISTICS
+    ========================================================== -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Managed Assets
+            </div>
+
+            <div class="stat-value blue">
+                47
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Patch Compliance
+            </div>
+
+            <div class="stat-value red">
+                61%
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Open Changes
+            </div>
+
+            <div class="stat-value orange">
+                18
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Unmanaged Assets
+            </div>
+
+            <div class="stat-value red">
+                9
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         INFRASTRUCTURE
+    ========================================================== -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <h2>
+                Infrastructure Inventory
+            </h2>
+
+            <p>
+                Synthetic representation of the legacy MLHMS environment.
+            </p>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Asset
+                        </th>
+
+                        <th>
+                            Function
+                        </th>
+
+                        <th>
+                            OS
+                        </th>
+
+                        <th>
+                            Application
+                        </th>
+
+                        <th>
+                            Patch Status
+                        </th>
+
+                        <th>
+                            Owner
+                        </th>
+
+                        <th>
+                            Configuration
+                        </th>
+
+                        <th>
+                            Risk
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            MLHMS-WEB01
+                        </td>
+
+                        <td>
+                            Web Server
+                        </td>
+
+                        <td>
+                            Windows Server 2016
+                        </td>
+
+                        <td>
+                            MLHMS 4.7.2
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                OVERDUE
+                            </span>
+
+                        </td>
+
+                        <td>
+                            IT
+                        </td>
+
+                        <td>
+
+                            <span class="badge orange">
+                                DRIFT
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                HIGH
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            MLHMS-DB01
+                        </td>
+
+                        <td>
+                            Database
+                        </td>
+
+                        <td>
+                            Windows Server 2016
+                        </td>
+
+                        <td>
+                            Legacy DB
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                OVERDUE
+                            </span>
+
+                        </td>
+
+                        <td>
+                            IT
+                        </td>
+
+                        <td>
+
+                            <span class="badge orange">
+                                REVIEW
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                CRITICAL
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            LAB-APP01
+                        </td>
+
+                        <td>
+                            Laboratory
+                        </td>
+
+                        <td>
+                            Ubuntu 18.04
+                        </td>
+
+                        <td>
+                            LabExt 1.0
+                        </td>
+
+                        <td>
+
+                            <span class="badge orange">
+                                UNKNOWN
+                            </span>
+
+                        </td>
+
+                        <td>
+                            Laboratory IT
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                UNMANAGED
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                CRITICAL
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            API-LEGACY01
+                        </td>
+
+                        <td>
+                            API Server
+                        </td>
+
+                        <td>
+                            Ubuntu 20.04
+                        </td>
+
+                        <td>
+                            Legacy API 2.1
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                OVERDUE
+                            </span>
+
+                        </td>
+
+                        <td>
+                            Contractor
+                        </td>
+
+                        <td>
+
+                            <span class="badge orange">
+                                UNKNOWN
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge red">
+                                HIGH
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            FILE01
+                        </td>
+
+                        <td>
+                            Shared Storage
+                        </td>
+
+                        <td>
+                            Windows Server 2019
+                        </td>
+
+                        <td>
+                            Shared Files
+                        </td>
+
+                        <td>
+
+                            <span class="badge green">
+                                CURRENT
+                            </span>
+
+                        </td>
+
+                        <td>
+                            IT
+                        </td>
+
+                        <td>
+
+                            <span class="badge green">
+                                BASELINE
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge blue">
+                                MEDIUM
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         TWO COLUMN OPERATIONS
+    ========================================================== -->
+
+    <div class="two-column">
+
+
+        <!-- =====================================================
+             BACKUP
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Backup & Recovery
+                </h2>
+
+                <p>
+                    Legacy backup operations.
+                </p>
+
+            </div>
+
+
+            <div class="operation-list">
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Database Backup
+                        </div>
+
+                        <div class="operation-detail">
+                            Last successful backup: 2026-08-13 02:00
+                        </div>
+
+                    </div>
+
+                    <span class="badge green">
+                        SUCCESS
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Excel Database Copy
+                        </div>
+
+                        <div class="operation-detail">
+                            Manual copy performed by administrator.
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        MANUAL
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Restore Test
+                        </div>
+
+                        <div class="operation-detail">
+                            Last verified restore: Unknown
+                        </div>
+
+                    </div>
+
+                    <span class="badge red">
+                        UNKNOWN
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Off-site Replication
+                        </div>
+
+                        <div class="operation-detail">
+                            Not consistently documented.
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        REVIEW
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EMERGENCY
+        ====================================================== -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Emergency Operations
+                </h2>
+
+                <p>
+                    Manual recovery and administrative actions.
+                </p>
+
+            </div>
+
+
+            <div class="operation-list">
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Break-Glass Administrator
+                        </div>
+
+                        <div class="operation-detail">
+                            Shared emergency account exists.
+                        </div>
+
+                    </div>
+
+                    <span class="badge red">
+                        HIGH
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Production Configuration
+                        </div>
+
+                        <div class="operation-detail">
+                            Emergency changes can bypass normal review.
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        REVIEW
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Vendor Remote Access
+                        </div>
+
+                        <div class="operation-detail">
+                            Access is enabled when required by support.
+                        </div>
+
+                    </div>
+
+                    <span class="badge orange">
+                        MANUAL
+                    </span>
+
+                </div>
+
+
+                <div class="operation">
+
+                    <div>
+
+                        <div class="operation-title">
+                            Recovery Procedure
+                        </div>
+
+                        <div class="operation-detail">
+                            Documentation differs between systems.
+                        </div>
+
+                    </div>
+
+                    <span class="badge red">
+                        INCOMPLETE
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- =========================================================
+         PATCHING
+    ========================================================== -->
+
+    <section
+        class="card"
+        style="margin-top:15px;">
+
+        <div class="card-header">
+
+            <h2>
+                Patch Management
+            </h2>
+
+            <p>
+                Current legacy patching position.
+            </p>
+
+        </div>
+
+
+        <div class="patch-grid">
+
+
+            <div class="patch">
+
+                <h3>
+                    Critical Systems
+                </h3>
+
+                <p>
+                    Emergency patches may be applied manually.
+                    Formal testing is inconsistent.
+                </p>
+
+            </div>
+
+
+            <div class="patch">
+
+                <h3>
+                    Laboratory Extension
+                </h3>
+
+                <p>
+                    Dependency ownership is unclear and patch
+                    status is not reliably tracked.
+                </p>
+
+            </div>
+
+
+            <div class="patch">
+
+                <h3>
+                    Operating Systems
+                </h3>
+
+                <p>
+                    Different servers operate under different
+                    patch baselines.
+                </p>
+
+            </div>
+
+
+            <div class="patch">
+
+                <h3>
+                    Application Dependencies
+                </h3>
+
+                <p>
+                    No complete software bill of materials exists
+                    for the legacy environment.
+                </p>
+
+            </div>
+
+
+            <div class="patch">
+
+                <h3>
+                    Configuration Baseline
+                </h3>
+
+                <p>
+                    Configuration drift can occur because changes
+                    are not consistently automated.
+                </p>
+
+            </div>
+
+
+            <div class="patch">
+
+                <h3>
+                    Maintenance Window
+                </h3>
+
+                <p>
+                    Security updates can be delayed because
+                    clinical availability takes priority.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CHANGE MANAGEMENT
+    ========================================================== -->
+
+    <section
+        class="card"
+        style="margin-top:15px;">
+
+        <div class="card-header">
+
+            <h2>
+                Recent Configuration Changes
+            </h2>
+
+            <p>
+                Synthetic records from the legacy change process.
+            </p>
+
+        </div>
+
+
+        <div class="change-list">
+
+
+            <div class="change">
+
+                <div class="change-header">
+
+                    <span class="change-id">
+                        CHG-2026-0814-014
+                    </span>
+
+                    <span class="badge red">
+                        REVIEW
+                    </span>
+
+                </div>
+
+                <div class="change-description">
+                    Production configuration modified on MLHMS-WEB01
+                    by developer01. Business justification not recorded.
+                </div>
+
+            </div>
+
+
+            <div class="change">
+
+                <div class="change-header">
+
+                    <span class="change-id">
+                        CHG-2026-0813-008
+                    </span>
+
+                    <span class="badge orange">
+                        PARTIAL
+                    </span>
+
+                </div>
+
+                <div class="change-description">
+                    Laboratory extension dependency changed during
+                    maintenance window. Dependency inventory not updated.
+                </div>
+
+            </div>
+
+
+            <div class="change">
+
+                <div class="change-header">
+
+                    <span class="change-id">
+                        CHG-2026-0812-004
+                    </span>
+
+                    <span class="badge green">
+                        CLOSED
+                    </span>
+
+                </div>
+
+                <div class="change-description">
+                    Shared file-server configuration updated by IT.
+                </div>
+
+            </div>
+
+
+            <div class="change">
+
+                <div class="change-header">
+
+                    <span class="change-id">
+                        CHG-2026-0809-021
+                    </span>
+
+                    <span class="badge red">
+                        NO RECORD
+                    </span>
+
+                </div>
+
+                <div class="change-description">
+                    Historical configuration change detected but no
+                    corresponding approved change request was found.
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         ISSUES
+    ========================================================== -->
+
+    <section class="card issues">
+
+        <div class="card-header">
+
+            <h2>
+                IT Security & Configuration Issues
+            </h2>
+
+            <p>
+                Findings contributing to the MLHMS legacy risk profile.
+            </p>
+
+        </div>
+
+
+        <div class="issues-body">
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Configuration drift
+                    </strong>
+
+                    <span>
+                        Servers and applications do not consistently
+                        conform to a single approved security baseline.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Manual patching
+                    </strong>
+
+                    <span>
+                        Patches are scheduled and applied manually,
+                        increasing the chance of missed vulnerabilities.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Incomplete asset inventory
+                    </strong>
+
+                    <span>
+                        Some legacy applications and extensions do not
+                        have clearly documented owners or dependencies.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#ef6c00;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Emergency changes can bypass governance
+                    </strong>
+
+                    <span>
+                        Availability pressure may result in configuration
+                        changes being made without normal approval.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue">
+
+                <span
+                    class="issue-dot"
+                    style="background:#c62828;">
+                </span>
+
+                <div>
+
+                    <strong>
+                        Restore capability is not regularly verified
+                    </strong>
+
+                    <span>
+                        Backups exist, but evidence of successful recovery
+                        testing is incomplete.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        MLHMS v4.7.2
+        —
+        Meridian General Hospital
+        —
+        Fictional Academic Case Study
+        —
+        Synthetic Data Only
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+function goDashboard() {
+
+    window.location.href =
+        "/routes/dashboard.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
