@@ -1,0 +1,17 @@
+{
+  "name": "meridian-general-hospital-mlhms",
+  "version": "4.7.2",
+  "description": "MLHMS - Meridian Legacy Healthcare Management System. Fictional academic legacy system demonstrating software security weaknesses.",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "xlsx": "^0.18.5"
+  }
+}
